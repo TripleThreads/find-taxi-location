@@ -17,6 +17,13 @@
             app:showAsAction="ifRoom" />
 
     <item
+            android:id="@+id/action_home"
+            android:enabled="true"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/home"
+            app:showAsAction="ifRoom" />
+
+    <item
             android:id="@+id/action_nearby"
             android:enabled="true"
             android:icon="@drawable/ic_add_circle_black_24dp"
