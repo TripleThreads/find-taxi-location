@@ -3,5 +3,15 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/colorSearchDark"
-             tools:context=".fragments.AlternativeRoutingFragment"/>
+             tools:context=".fragments.AlternativeRoutingFragment"
+>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/alternate_route_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+    >
+
+    </androidx.recyclerview.widget.RecyclerView>
+</FrameLayout>
