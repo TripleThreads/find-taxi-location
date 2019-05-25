@@ -2,5 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragments.BestRouteFragment"/>
+             android:layout_height="match_parent" xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+             tools:context=".fragments.BestRouteFragment">
+
+    <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/best_route_map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:mapbox_cameraTargetLat="9.84"
+            mapbox:mapbox_cameraTargetLng="38.76"
+            mapbox:mapbox_cameraZoom="10"
+            mapbox:mapbox_cameraBearing="34.33"
+            mapbox:mapbox_cameraTilt="50.25"
+            mapbox:mapbox_cameraZoomMin="6"
+            mapbox:mapbox_uiRotateGestures="false"/>
+
+</FrameLayout>

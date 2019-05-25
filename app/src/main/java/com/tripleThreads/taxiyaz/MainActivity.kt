@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mapbox.mapboxsdk.Mapbox
 import com.tripleThreads.taxiyaz.fragments.RouteFragment
 import com.tripleThreads.taxiyaz.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Mapbox.getInstance(this, resources.getString(R.string.mapbox_access_token))
+
         setContentView(R.layout.activity_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
