@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.onBtnClicked,
 
             }
             R.id.action_home -> {
+
                 val routeFragment = RouteFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frame, routeFragment)
