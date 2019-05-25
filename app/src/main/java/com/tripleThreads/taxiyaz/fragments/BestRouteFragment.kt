@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tripleThreads.taxiyaz.R
+import com.tripleThreads.taxiyaz.RouteListAdapter
+import kotlinx.android.synthetic.main.fragment_best_route.view.*
 
 class BestRouteFragment : Fragment() {
 
@@ -14,7 +17,15 @@ class BestRouteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_best_route, container, false)
+        val view = inflater.inflate(R.layout.fragment_best_route, container, false)
+
+        val recyclerView = view.best_route_recycler_view
+        var routeAdapter = RouteListAdapter(this!!.activity!!)
+        recyclerView.adapter = routeAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this.activity)
+
+
+        return view
     }
 
 
