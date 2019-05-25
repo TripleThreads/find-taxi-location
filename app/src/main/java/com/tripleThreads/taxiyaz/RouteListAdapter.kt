@@ -13,7 +13,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
     private val inflater = LayoutInflater.from(context)
     var routes = emptyList<Route>()
 
-    fun getRoutes(){
+    fun  getRoutes(){
         //get route from database here
 
         routes = listOf(
@@ -30,6 +30,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteViewHolder {
+
 
         val recyclerViewItem = inflater.inflate(R.layout.route_card_view_item, parent, false)
 
