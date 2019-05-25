@@ -3,6 +3,7 @@ package com.tripleThreads.taxiyaz
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelStore
 
 class ViewPagerAdapter(supportFragmentManager: FragmentManager) : FragmentPagerAdapter(supportFragmentManager) {
 
@@ -10,6 +11,7 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager) : FragmentPagerA
     private val mFragmentTitleList = ArrayList<String>()
 
     override fun getItem(position: Int): Fragment {
+
         return mFragmentList[position]
     }
 
@@ -24,5 +26,10 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager) : FragmentPagerA
     fun addFragment(fragment: Fragment, title: String) {
         mFragmentList.add(fragment)
         mFragmentTitleList.add(title)
+    }
+
+    fun removeAll(){
+        mFragmentList.clear()
+        mFragmentTitleList.clear()
     }
 }
