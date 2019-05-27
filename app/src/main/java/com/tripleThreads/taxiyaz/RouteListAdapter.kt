@@ -5,14 +5,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.tripleThreads.taxiyaz.Data.Route
+import com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment
+import com.tripleThreads.taxiyaz.viewModel.routeViewModel
 import kotlinx.android.synthetic.main.route_card_view_item.view.*
 
 class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>() {
     private val inflater = LayoutInflater.from(context)
     var routes = emptyList<Route>()
 
+    lateinit var viewModel:routeViewModel
     fun  getRoutes(){
         //get route from database here
 
@@ -30,8 +35,6 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteViewHolder {
-
-
         val recyclerViewItem = inflater.inflate(R.layout.route_card_view_item, parent, false)
 
         return RouteViewHolder(recyclerViewItem)
@@ -47,6 +50,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
         holder.routePrice.text = route.price.toString()
 
 
+        //viewModel = ViewModelProviders.of(AlternativeRoutingFragment()).get(routeViewModel::class.java)
     }
 }
 

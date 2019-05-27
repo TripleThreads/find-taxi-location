@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tripleThreads.taxiyaz.Data.Route
 import com.tripleThreads.taxiyaz.R
+import com.tripleThreads.taxiyaz.data.User
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 
@@ -33,9 +35,6 @@ class LoginFragment : Fragment() {
 
     }
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +43,7 @@ class LoginFragment : Fragment() {
 
         val phoneNumber = view.phoneNo
         val cont = view.ContinueBtn
+
 
         cont.setOnClickListener{
             val pno = phoneNumber.text.toString()
@@ -65,5 +65,16 @@ class LoginFragment : Fragment() {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+
+    companion object {
+        fun newInstance(phone: String):LoginFragment{
+
+            var args = Bundle()
+            args.putSerializable("user",phone)
+            val login=LoginFragment()
+            login.arguments = args
+            return login
+        }
+    }
 
 }

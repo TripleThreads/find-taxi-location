@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tripleThreads.taxiyaz.Data.Route
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.RouteListAdapter
 import kotlinx.android.synthetic.main.fragment_alternative_routing.view.*
@@ -28,6 +29,11 @@ class AlternativeRoutingFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity1)
         recyclerView.setHasFixedSize(true)
         //Log.e("ATTACHMENT","attached")
+
+
+
         return view
     }
+
+
 }

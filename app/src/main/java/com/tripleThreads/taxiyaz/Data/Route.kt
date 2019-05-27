@@ -3,6 +3,7 @@ package com.tripleThreads.taxiyaz.Data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "Routes")
 class Route (
@@ -11,4 +12,4 @@ class Route (
     @ColumnInfo(name = "lon")val logitude: Double,
     @ColumnInfo(name = "hop")val hops: Int,
     @ColumnInfo(name = "price")val price: Double
-)
+):Serializable

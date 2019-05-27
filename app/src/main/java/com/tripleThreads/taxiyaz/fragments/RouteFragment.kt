@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.tripleThreads.taxiyaz.Data.Route
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_route.*
@@ -20,8 +21,13 @@ class RouteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_route, container, false)
 
-        return inflater.inflate(R.layout.fragment_route, container, false)
+
+
+
+
+        return view
     }
 
 
@@ -35,4 +41,6 @@ class RouteFragment : Fragment() {
         view.tabs.getTabAt(0)?.setIcon(R.drawable.ic_best_user_black_24dp)
         view.tabs.getTabAt(1)?.setIcon(R.drawable.ic_optional_black_24dp)
     }
+
+
 }

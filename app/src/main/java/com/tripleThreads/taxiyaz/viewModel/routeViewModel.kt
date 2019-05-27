@@ -10,7 +10,7 @@ import com.tripleThreads.taxiyaz.repository.RouteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class routeViewModel(application: Application) : AndroidViewModel(application) {
+public class routeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: RouteRepository
     val allRoutes: LiveData<List<Route>>

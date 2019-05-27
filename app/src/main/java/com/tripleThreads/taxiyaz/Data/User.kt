@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName="users")
-class User (@NonNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name="id") val id:Int, @ColumnInfo(name="name") val name:String, @ColumnInfo(name = "Phone Number") var phoneNumber:String?= null)
+class User (@ColumnInfo(name="name") val name:String, @ColumnInfo(name = "Phone Number") @NonNull @PrimaryKey var phoneNumber:String):Serializable

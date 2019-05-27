@@ -12,6 +12,7 @@
             android:layout_width="300dp"
             android:layout_height="30dp"
             android:padding="3dp"
+            android:imeOptions="actionSearch"
             android:inputType="textPersonName"
             android:hint="@string/search"
             android:background="@drawable/edit_round"
