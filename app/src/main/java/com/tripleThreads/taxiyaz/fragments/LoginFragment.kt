@@ -1,39 +1,24 @@
 package com.tripleThreads.taxiyaz.fragments
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tripleThreads.taxiyaz.Data.Route
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.User
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [LoginFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class LoginFragment : Fragment() {
 
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,30 +26,17 @@ class LoginFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login,container,false)
 
-        val phoneNumber = view.phoneNo
+        val phoneNumber = view.phone_number
         val cont = view.ContinueBtn
 
 
         cont.setOnClickListener{
             val pno = phoneNumber.text.toString()
-            listener.onContinueButtonClicked(pno)
+            showDialog(pno)
         }
 
         return view
     }
-
-    lateinit var listener: onBtnClicked
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if(context is onBtnClicked){
-            listener = context
-        }
-    }
-    interface onBtnClicked {
-        fun onContinueButtonClicked(phone:String)
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
 
     companion object {
         fun newInstance(phone: String):LoginFragment{
@@ -74,6 +46,39 @@ class LoginFragment : Fragment() {
             val login=LoginFragment()
             login.arguments = args
             return login
+        }
+    }
+
+
+    private fun showDialog(phone: String){
+        var dialog: AlertDialog.Builder?=null
+        dialog = AlertDialog.Builder(context!!)
+            .setMessage("Are you sure (+251) ${phone} is your number?   ")
+
+        if((phone.length == 9 && phone.startsWith('9')) || (phone.length == 10 && phone.startsWith('0'))){
+            dialog.setMessage("Are you sure (+251) ${phone} is your number?   ")
+            dialog.setPositiveButton("Yes", DialogInterface.OnClickListener{ dialog, which ->
+                // replace fragment
+                val routeFragment = RouteFragment()
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.main_frame, routeFragment)
+                    .commit()
+                activity!!.bottom_navigation.visibility = View.VISIBLE
+
+            })
+            dialog.setNegativeButton("No", DialogInterface.OnClickListener{ dialog, which ->
+                Toast.makeText(context,"No", Toast.LENGTH_SHORT).show()
+            })
+            val alert = dialog.create()
+            alert.setTitle("Confirm your phone number")
+            alert.show()
+        }
+        else if(phone.isEmpty()){
+            phone_number.error = "Phone Number can't be empty"
+
+        }
+        else{
+            Toast.makeText(context,"Invalid Phone Number", Toast.LENGTH_SHORT).show()
         }
     }
 
