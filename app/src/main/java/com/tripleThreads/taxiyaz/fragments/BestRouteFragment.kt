@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-
-import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.Style
+import com.google.android.gms.maps.*
 import com.tripleThreads.taxiyaz.R
-import kotlinx.android.synthetic.main.fragment_best_route.*
-import kotlinx.android.synthetic.main.fragment_best_route.view.*
+import com.google.android.gms.maps.GoogleMap
+import android.annotation.SuppressLint
+import android.location.Location
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationListener
+import com.google.android.gms.maps.model.*
 
 
 class BestRouteFragment : Fragment() {
-//    private lateinit var mapboxMapView: MapView
+    private lateinit var googleMap: GoogleMap
 
+
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,46 +29,22 @@ class BestRouteFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_best_route, container, false)
 
-//        mapboxMapView = view.best_route_map_view
-//        mapboxMapView.getMapAsync {
-//            mapboxMap -> mapboxMap.setStyle(Style.MAPBOX_STREETS)
-//        }
+        (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
+            googleMap = mMap
+
+            // For showing a move to my location button
+            googleMap.isMyLocationEnabled = true
+
+            // For dropping a marker at a point on the Map
+            val addisAbaba = LatLng(8.9806, 38.7578)
+            googleMap.addMarker(MarkerOptions().position(addisAbaba).title("Marker Title").snippet("Marker Description"))
+
+            // For zooming automatically to the location of the marker
+            val cameraPosition = CameraPosition.Builder().target(addisAbaba).zoom(12f).build()
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
+
         return view
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//        map.onStart()
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        map.onResume()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        map.onPause()
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        map.onStop()
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        map.onDestroy()
-//    }
-//
-//    override fun onLowMemory() {
-//        super.onLowMemory()
-//        map.onLowMemory()
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        map.onSaveInstanceState(outState)
-//    }
 
 }

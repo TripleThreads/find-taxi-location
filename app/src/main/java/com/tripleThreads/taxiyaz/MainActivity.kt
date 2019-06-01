@@ -4,23 +4,15 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.text.Layout
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
-import com.mapbox.mapboxsdk.Mapbox
 import com.tripleThreads.taxiyaz.data.User
 import com.tripleThreads.taxiyaz.fragments.LoginFragment
 import com.tripleThreads.taxiyaz.fragments.NameFragment
 import com.tripleThreads.taxiyaz.fragments.RouteFragment
 import com.tripleThreads.taxiyaz.fragments.SettingsFragment
-import com.tripleThreads.taxiyaz.viewModel.UserViewModel
-import com.tripleThreads.taxiyaz.viewModel.routeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -29,7 +21,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.onBtnClicked,
 
     private lateinit var name:String
     private lateinit var phone:String
-    lateinit var viewModel: UserViewModel
 
     override fun onContinueButtonClicked(phone: String) {
         showDialog(phone)
