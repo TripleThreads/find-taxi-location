@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +37,11 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteViewHolder {
         val recyclerViewItem = inflater.inflate(R.layout.route_card_view_item, parent, false)
+
+        recyclerViewItem.setOnClickListener {
+
+            Toast.makeText(parent.context, routes[viewType].title,Toast.LENGTH_SHORT ).show()
+        }
 
         return RouteViewHolder(recyclerViewItem)
     }
