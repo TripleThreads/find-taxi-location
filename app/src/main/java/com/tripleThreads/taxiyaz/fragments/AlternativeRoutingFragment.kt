@@ -2,14 +2,11 @@ package com.tripleThreads.taxiyaz.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.tripleThreads.taxiyaz.Data.Route
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.RouteListAdapter
 import kotlinx.android.synthetic.main.fragment_alternative_routing.view.*

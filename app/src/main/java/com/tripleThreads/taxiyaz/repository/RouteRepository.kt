@@ -2,8 +2,8 @@ package com.tripleThreads.taxiyaz.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.tripleThreads.taxiyaz.Data.MyDao
-import com.tripleThreads.taxiyaz.Data.Route
+import com.tripleThreads.taxiyaz.data.MyDao
+import com.tripleThreads.taxiyaz.data.Route
 
 class RouteRepository(private val dao: MyDao) {
 

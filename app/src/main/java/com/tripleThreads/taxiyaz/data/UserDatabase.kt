@@ -1,20 +1,22 @@
-package com.tripleThreads.taxiyaz.Data
+package com.tripleThreads.taxiyaz.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.tripleThreads.taxiyaz.data.User
+import com.tripleThreads.taxiyaz.data.UserDao
 
-@Database(entities = arrayOf(Route::class), version = 1)
-abstract class MyDatabase : RoomDatabase() {
+@Database(entities = [User::class], version = 1)
+abstract class UserDatabase : RoomDatabase() {
 
-    abstract fun dao(): MyDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile
-        private var INSTANCE: MyDatabase? = null
+        private var INSTANCE: UserDatabase? = null
 
-        fun getDatabase(context: Context): MyDatabase {
+        fun getDatabase(context: Context): UserDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -22,8 +24,7 @@ abstract class MyDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    MyDatabase::class.java,
-                    "Route_Database"
+                    UserDatabase::class.java, "UserDatabase"
                 ).build()
                 INSTANCE = instance
                 return instance

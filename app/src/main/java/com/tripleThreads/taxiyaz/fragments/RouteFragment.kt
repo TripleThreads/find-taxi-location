@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.tripleThreads.taxiyaz.Data.Route
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_route.*

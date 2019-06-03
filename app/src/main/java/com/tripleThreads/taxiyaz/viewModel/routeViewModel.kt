@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.tripleThreads.taxiyaz.Data.MyDatabase
-import com.tripleThreads.taxiyaz.Data.Route
+import com.tripleThreads.taxiyaz.data.MyDatabase
+import com.tripleThreads.taxiyaz.data.Route
 import com.tripleThreads.taxiyaz.repository.RouteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

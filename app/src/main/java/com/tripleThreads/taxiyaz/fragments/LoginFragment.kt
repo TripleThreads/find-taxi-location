@@ -1,24 +1,30 @@
 package com.tripleThreads.taxiyaz.fragments
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
-import com.tripleThreads.taxiyaz.Data.Route
+import androidx.lifecycle.ViewModelProviders
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.User
+import com.tripleThreads.taxiyaz.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 
 class LoginFragment : Fragment() {
+    lateinit var userViewModel: UserViewModel
 
+    lateinit var phoneNumber: EditText
+    lateinit var userName: EditText
+    lateinit var registerButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,39 +32,40 @@ class LoginFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login,container,false)
 
-        val phoneNumber = view.phone_number
-        val cont = view.ContinueBtn
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+
+        phoneNumber = view.phone_number
+        userName = view.user_name
+        registerButton = view.ContinueBtn
 
 
-        cont.setOnClickListener{
-            val pno = phoneNumber.text.toString()
-            showDialog(pno)
+        registerButton.setOnClickListener{
+            showDialog(getFields())
         }
 
         return view
     }
 
-    companion object {
-        fun newInstance(phone: String):LoginFragment{
-
-            var args = Bundle()
-            args.putSerializable("user",phone)
-            val login=LoginFragment()
-            login.arguments = args
-            return login
-        }
+    private fun getFields(): User {
+        return User(
+            name = userName.text.toString(),
+            phoneNumber = phoneNumber.text.toString()
+        )
     }
 
-
-    private fun showDialog(phone: String){
+    private fun showDialog(user: User){
         var dialog: AlertDialog.Builder?=null
         dialog = AlertDialog.Builder(context!!)
-            .setMessage("Are you sure (+251) ${phone} is your number?   ")
+            .setMessage("Are you sure (+251) ${user.phoneNumber} is your number?   ")
 
-        if((phone.length == 9 && phone.startsWith('9')) || (phone.length == 10 && phone.startsWith('0'))){
-            dialog.setMessage("Are you sure (+251) ${phone} is your number?   ")
+        if((user.phoneNumber.length == 9 && user.phoneNumber.startsWith('9')) || (user.phoneNumber.length == 10 &&
+                    user.phoneNumber.startsWith('0'))){
+            dialog.setMessage("Are you sure (+251) ${user.phoneNumber} is your number?   ")
             dialog.setPositiveButton("Yes", DialogInterface.OnClickListener{ dialog, which ->
                 // replace fragment
+
+                userViewModel.insert(user)
+
                 val routeFragment = RouteFragment()
                 fragmentManager!!.beginTransaction()
                     .replace(R.id.main_frame, routeFragment)
@@ -73,7 +80,7 @@ class LoginFragment : Fragment() {
             alert.setTitle("Confirm your phone number")
             alert.show()
         }
-        else if(phone.isEmpty()){
+        else if(user.phoneNumber.isEmpty()){
             phone_number.error = "Phone Number can't be empty"
 
         }

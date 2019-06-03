@@ -1,4 +1,4 @@
-package com.tripleThreads.taxiyaz.Data
+package com.tripleThreads.taxiyaz.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -7,4 +7,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(tableName="users")
-class User (@ColumnInfo(name="name") val name:String, @ColumnInfo(name = "Phone Number") @NonNull @PrimaryKey var phoneNumber:String):Serializable
+class User (
+    @ColumnInfo(name="name") val name:String,
+    @ColumnInfo(name = "Phone Number") @NonNull @PrimaryKey var phoneNumber:String
+):Serializable

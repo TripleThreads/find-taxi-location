@@ -5,11 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.tripleThreads.taxiyaz.Data.Route
-import com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment
+import com.tripleThreads.taxiyaz.data.Route
 import com.tripleThreads.taxiyaz.viewModel.routeViewModel
 import kotlinx.android.synthetic.main.route_card_view_item.view.*
 
