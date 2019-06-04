@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripleThreads.taxiyaz.fragments.LoginFragment
 import com.tripleThreads.taxiyaz.fragments.RouteFragment
@@ -26,17 +27,10 @@ class MainActivity : AppCompatActivity() {
 
         if (userViewModel.user == null) {
             bottom_navigation.visibility = View.INVISIBLE
-
-            val loginFragment = LoginFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, loginFragment)
-                .commit()
+            findNavController(R.id.nav_host).navigate(R.id.login_fragment_dest)
         }
         else {
-            val routeFragment = RouteFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, routeFragment)
-                .commit()
+            findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest)
         }
 
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -49,21 +43,11 @@ class MainActivity : AppCompatActivity() {
 
             }
             R.id.action_settings -> {
-                if(bottom_navigation.selectedItemId != R.id.action_settings){
-                    val settingsFragment = SettingsFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frame, settingsFragment)
-                        .commit()
-                }
+                findNavController(R.id.nav_host).navigate(R.id.settings_fragment_dest)
             }
 
             R.id.action_home -> {
-                if(bottom_navigation.selectedItemId != R.id.action_home){
-                    val routeFragment = RouteFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frame, routeFragment)
-                        .commit()
-                }
+                findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest)
             }
 
             R.id.action_nearby ->{
