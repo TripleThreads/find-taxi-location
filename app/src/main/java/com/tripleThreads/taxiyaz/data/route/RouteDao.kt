@@ -1,22 +1,23 @@
-package com.tripleThreads.taxiyaz.data
+package com.tripleThreads.taxiyaz.data.route
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
+import com.tripleThreads.taxiyaz.data.route.Route
 
 @Dao
-interface MyDao {
+interface RouteDao {
     @Query("SELECT * FROM ROUTES ORDER BY TITLE")
     fun getAllRoutes(): LiveData<List<Route>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRoute(route:Route)
+    fun insertRoute(route: Route)
 
     @Update
-    fun updateRoute(route:Route)
+    fun updateRoute(route: Route)
 
     @Delete
-    fun deleteRoute(route:Route)
+    fun deleteRoute(route: Route)
 
     @Query("SELECT * FROM ROUTES WHERE TITLE = :title LIMIT 1")
     fun getRouteByName(title:String):LiveData<Route>

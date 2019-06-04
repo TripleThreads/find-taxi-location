@@ -1,8 +1,8 @@
 package com.tripleThreads.taxiyaz.repository
 
 import androidx.annotation.WorkerThread
-import com.tripleThreads.taxiyaz.data.User
-import com.tripleThreads.taxiyaz.data.UserDao
+import com.tripleThreads.taxiyaz.data.user.User
+import com.tripleThreads.taxiyaz.data.user.UserDao
 
 class UserRepository(private val dao: UserDao) {
 
@@ -12,7 +12,7 @@ class UserRepository(private val dao: UserDao) {
     }
 
     @WorkerThread
-    fun insert(user:User) {
+    fun insert(user: User) {
         dao.insert(user)
     }
 

@@ -3,8 +3,8 @@ package com.tripleThreads.taxiyaz.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripleThreads.taxiyaz.data.UserDatabase
-import com.tripleThreads.taxiyaz.data.User
+import com.tripleThreads.taxiyaz.data.TxYzDatabase
+import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     var user: User? = null
 
     init {
-        val userDao = UserDatabase.getDatabase(application).userDao()
+        val userDao = TxYzDatabase.getDatabase(application).userDao()
         repository = UserRepository(userDao)
         getUser()
     }
@@ -27,7 +27,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun insert(user: User) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(user)
     }
-    fun update(user:User) = viewModelScope.launch (Dispatchers.IO){
+    fun update(user: User) = viewModelScope.launch (Dispatchers.IO){
         repository.update(user)
     }
     fun delete(user: User) = viewModelScope.launch (Dispatchers.IO){

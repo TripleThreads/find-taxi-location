@@ -12,7 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.tripleThreads.taxiyaz.R
-import com.tripleThreads.taxiyaz.data.User
+import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*

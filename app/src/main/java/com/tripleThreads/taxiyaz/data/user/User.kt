@@ -1,4 +1,4 @@
-package com.tripleThreads.taxiyaz.data
+package com.tripleThreads.taxiyaz.data.user
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
@@ -9,5 +9,5 @@ import java.io.Serializable
 @Entity(tableName="users")
 class User (
     @ColumnInfo(name="name") val name:String,
-    @ColumnInfo(name = "Phone Number") @NonNull @PrimaryKey var phoneNumber:String
+    @ColumnInfo(name = "phone_number") @NonNull @PrimaryKey var phoneNumber:String
 ):Serializable

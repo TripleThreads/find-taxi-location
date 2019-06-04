@@ -9,7 +9,8 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.tripleThreads.taxiyaz.Data.Route
+import com.tripleThreads.taxiyaz.data.location.Location
+import com.tripleThreads.taxiyaz.data.route.Route
 import com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment
 import com.tripleThreads.taxiyaz.viewModel.routeViewModel
 import kotlinx.android.synthetic.main.route_card_view_item.view.*
@@ -21,17 +22,14 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
     lateinit var viewModel:routeViewModel
     fun  getRoutes(){
         //get route from database here
-
+        val locations = ArrayList<Location>()
+        locations.add(Location(1,12.0, 12.0))
         routes = listOf(
-            Route("First one",10.11,33.2, 3, 3.50),
-            Route("Second one",1.11,33.2, 5, 3.50),
-            Route("Third one",3.11,33.2, 7, 4.0),
-            Route("Fourth one",10.01,33.2, 1, 3.50),
-            Route("Bekaaa one",30.4,33.2, 0, 13.50),
-            Route("Last one",10.11,33.2, 4, 3.50),
-            Route("Repeated one",10.11,33.2, 3, 3.50),
-            Route("First one",10.11,33.2, 3, 3.50)
-
+            Route(1,"First one",3,33.2, locations = locations),
+            Route(1,"First one",3,33.2, locations = locations),
+            Route(1,"First one",3,33.2, locations = locations),
+            Route(1,"First one",3,33.2, locations = locations),
+            Route(1,"First one",3,33.2, locations = locations)
         )
     }
 
@@ -51,7 +49,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
     override fun onBindViewHolder(holder: RouteViewHolder, position: Int) {
         val route = routes[position]
         holder.routeTitle.text = route.title
-        holder.routeGeo.text = route.latitude.toString() +" "+route.logitude
+        holder.routeGeo.text = route.locations[0].latitude.toString() +" "+route.locations[0].longitude.toString()
         holder.routeHops.text = route.hops.toString()
         holder.routePrice.text = route.price.toString()
 
