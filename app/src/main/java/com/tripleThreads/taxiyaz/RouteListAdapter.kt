@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.route_card_view_item.view.*
 
 class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>() {
     private val inflater = LayoutInflater.from(context)
-    var routes = emptyList<Route>()
+    private var routes = emptyList<Route>()
 
     lateinit var viewModel:routeViewModel
-    fun  getRoutes(){
+    fun  getRoutes(): List<Route>{
         //get route from database here
         val locations = ArrayList<Location>()
         locations.add(Location(1,12.0, 12.0))
@@ -31,6 +31,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
             Route(1,"First one",3,33.2, locations = locations),
             Route(1,"First one",3,33.2, locations = locations)
         )
+        return routes;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteViewHolder {
@@ -56,6 +57,13 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
 
         //viewModel = ViewModelProviders.of(AlternativeRoutingFragment()).get(routeViewModel::class.java)
     }
+
+    internal fun setRoutes(routes: List<Route>){
+      this.routes = routes
+        notifyDataSetChanged()
+
+    }
+
 }
 
 class RouteViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){

@@ -22,7 +22,8 @@ interface RouteDao {
     @Query("SELECT * FROM ROUTES WHERE TITLE = :title LIMIT 1")
     fun getRouteByName(title:String):LiveData<Route>
 
-
+    @Query("DELETE FROM ROUTES")
+    fun deleteAll()
 
 
 }

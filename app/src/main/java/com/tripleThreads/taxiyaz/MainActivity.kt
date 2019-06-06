@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.navOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripleThreads.taxiyaz.fragments.LoginFragment
 import com.tripleThreads.taxiyaz.fragments.RouteFragment
@@ -36,14 +37,21 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-
+    val options = navOptions {
+        anim {
+            enter = R.anim.abc_fade_in
+            exit = R.anim.abc_fade_out
+            popEnter = R.anim.abc_popup_enter
+            popExit = R.anim.abc_popup_exit
+        }
+    }
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.action_recents -> {
 
             }
             R.id.action_settings -> {
-                findNavController(R.id.nav_host).navigate(R.id.settings_fragment_dest)
+                findNavController(R.id.nav_host).navigate(R.id.settings_fragment_dest,null, options)
             }
 
             R.id.action_home -> {
@@ -56,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
         true
     }
+
 
 
 

@@ -6,11 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.route.Route
-import com.tripleThreads.taxiyaz.repository.RouteRepository
+import com.tripleThreads.taxiyaz.Repository.RouteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class routeViewModel(application: Application) : AndroidViewModel(application) {
+class routeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: RouteRepository
     val allRoutes: LiveData<List<Route>>
@@ -34,5 +34,8 @@ public class routeViewModel(application: Application) : AndroidViewModel(applica
     }
     fun getRouteByName(name:String) = viewModelScope.launch (Dispatchers.IO){
         searchedroute = repository.getByName(name)
+    }
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
+        repository.delete()
     }
 }

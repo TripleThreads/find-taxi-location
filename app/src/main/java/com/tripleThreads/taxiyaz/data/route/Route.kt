@@ -15,5 +15,5 @@ class Route (
     @ColumnInfo(name = "title")val title: String,
     @ColumnInfo(name = "number_of_hops")val hops: Int,
     @ColumnInfo(name = "price")val price: Double,
-    @ColumnInfo(name = "locations") val locations: ArrayList<Location>
+    @ColumnInfo(name = "locations") var locations: ArrayList<Location>
 ):Serializable

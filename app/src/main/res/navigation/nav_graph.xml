@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
             app:startDestination="@id/route_fragment_dest">
-    <fragment android:id="@+id/add_route_dest" android:name="com.tripleThreads.taxiyaz.fragments.AddRoute"
-              android:label="fragment_add_route" tools:layout="@layout/fragment_add_route"/>
-    <fragment android:id="@+id/route_fragment_dest" android:name="com.tripleThreads.taxiyaz.fragments.RouteFragment"
-              android:label="fragment_route" tools:layout="@layout/fragment_route"/>
-    <fragment android:id="@+id/settings_fragment_dest" android:name="com.tripleThreads.taxiyaz.fragments.SettingsFragment"
-              android:label="fragment_settings" tools:layout="@layout/fragment_settings"/>
-    <fragment android:id="@+id/placeholder"/>
-    <fragment android:id="@+id/login_fragment_dest" android:name="com.tripleThreads.taxiyaz.fragments.LoginFragment"
-              android:label="fragment_login" tools:layout="@layout/fragment_login"/>
+    <fragment android:id="@+id/add_route_dest"
+              android:name="com.tripleThreads.taxiyaz.fragments.AddRoute"
+              android:label="fragment_add_route"
+              tools:layout="@layout/fragment_add_route"/>
+    <fragment android:id="@+id/route_fragment_dest"
+              android:name="com.tripleThreads.taxiyaz.fragments.RouteFragment"
+              android:label="fragment_route"
+              tools:layout="@layout/fragment_route"/>
+    <fragment android:id="@+id/settings_fragment_dest"
+              android:name="com.tripleThreads.taxiyaz.fragments.SettingsFragment"
+              android:label="fragment_settings"
+              tools:layout="@layout/fragment_settings"/>
+    <fragment android:id="@+id/login_fragment_dest"
+              android:name="com.tripleThreads.taxiyaz.fragments.LoginFragment"
+              android:label="fragment_login"
+              tools:layout="@layout/fragment_login"/>
 </navigation>

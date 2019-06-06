@@ -1,4 +1,4 @@
-package com.tripleThreads.taxiyaz.repository
+package com.tripleThreads.taxiyaz.Repository
 
 import androidx.annotation.WorkerThread
 import com.tripleThreads.taxiyaz.data.user.User

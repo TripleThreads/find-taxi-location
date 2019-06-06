@@ -1,4 +1,4 @@
-package com.tripleThreads.taxiyaz.repository
+package com.tripleThreads.taxiyaz.Repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -29,5 +29,10 @@ class RouteRepository(private val dao: RouteDao) {
     fun getByName(name: String): LiveData<Route> {
         var searcherDoute: LiveData<Route> = dao.getRouteByName(name)
         return searcherDoute
+    }
+
+    @WorkerThread
+    fun delete() {
+        dao.deleteAll()
     }
 }
