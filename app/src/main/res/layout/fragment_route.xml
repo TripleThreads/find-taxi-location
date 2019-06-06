@@ -51,7 +51,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_begin="70dp"
+            app:layout_constraintGuide_begin="50dp"
             android:id="@+id/guideline"/>
 
     <androidx.viewpager.widget.ViewPager

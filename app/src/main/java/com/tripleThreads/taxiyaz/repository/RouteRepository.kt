@@ -1,4 +1,4 @@
-package com.tripleThreads.taxiyaz.Repository
+package com.tripleThreads.taxiyaz.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import com.tripleThreads.taxiyaz.data.route.Route
 
 class RouteRepository(private val dao: RouteDao) {
 
-    val allROutes: LiveData<List<Route>> = dao.getAllRoutes()
+    val allRoutes: LiveData<List<Route>> = dao.getAllRoutes()
 
 
     @WorkerThread
@@ -27,8 +27,7 @@ class RouteRepository(private val dao: RouteDao) {
 
     @WorkerThread
     fun getByName(name: String): LiveData<Route> {
-        var searcherDoute: LiveData<Route> = dao.getRouteByName(name)
-        return searcherDoute
+        return dao.getRouteByName(name)
     }
 
     @WorkerThread

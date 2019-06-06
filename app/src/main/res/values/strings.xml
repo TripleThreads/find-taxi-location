@@ -12,6 +12,12 @@
     <string name="best_route">Best Route</string>
     <string name="alternative_route">Alternative Route</string>
     <string name="home">Home</string>
+    <string name="add_new_node">Add new taxi location</string>
+    <string name="rules_text">As far as I\'m aware, you can\'t declare custom fonts in xml or themes.</string>
+    <string name="add_node">Add Node</string>
+    <string name="available_taxi">Available taxi</string>
+    <string name="my_location">My current location</string>
+    <string name="pin_map">Pin on map</string>
 
 
 </resources>

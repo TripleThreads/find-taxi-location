@@ -6,20 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.tripleThreads.taxiyaz.data.location.Location
 import com.tripleThreads.taxiyaz.data.route.Route
-import com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment
-import com.tripleThreads.taxiyaz.viewModel.routeViewModel
+import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import kotlinx.android.synthetic.main.route_card_view_item.view.*
 
 class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>() {
     private val inflater = LayoutInflater.from(context)
     private var routes = emptyList<Route>()
 
-    lateinit var viewModel:routeViewModel
+    lateinit var viewModel:RouteViewModel
     fun  getRoutes(): List<Route>{
         //get route from database here
         val locations = ArrayList<Location>()
@@ -55,7 +52,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
         holder.routePrice.text = route.price.toString()
 
 
-        //viewModel = ViewModelProviders.of(AlternativeRoutingFragment()).get(routeViewModel::class.java)
+        //viewModel = ViewModelProviders.of(AlternativeRoutingFragment()).get(RouteViewModel::class.java)
     }
 
     internal fun setRoutes(routes: List<Route>){

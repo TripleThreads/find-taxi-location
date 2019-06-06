@@ -3,14 +3,16 @@ package com.tripleThreads.taxiyaz.fragments
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.viewModel.UserViewModel
@@ -65,11 +67,7 @@ class LoginFragment : Fragment() {
                 // replace fragment
 
                 userViewModel.insert(user)
-
-                val routeFragment = RouteFragment()
-                fragmentManager!!.beginTransaction()
-                    .replace(R.id.main_frame, routeFragment)
-                    .commit()
+                findNavController().navigate(R.id.route_fragment_dest)
                 activity!!.bottom_navigation.visibility = View.VISIBLE
 
             })

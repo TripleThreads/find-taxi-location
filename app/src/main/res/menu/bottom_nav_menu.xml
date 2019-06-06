@@ -24,7 +24,7 @@
             app:showAsAction="ifRoom" />
 
     <item
-            android:id="@+id/action_nearby"
+            android:id="@+id/action_add"
             android:enabled="true"
             android:icon="@drawable/ic_add_circle_black_24dp"
             android:title="@string/add_new"

@@ -5,7 +5,7 @@
             android:id="@+id/nav_graph"
             app:startDestination="@id/route_fragment_dest">
     <fragment android:id="@+id/add_route_dest"
-              android:name="com.tripleThreads.taxiyaz.fragments.AddRoute"
+              android:name="com.tripleThreads.taxiyaz.fragments.AddRouteFragment"
               android:label="fragment_add_route"
               tools:layout="@layout/fragment_add_route"/>
     <fragment android:id="@+id/route_fragment_dest"
@@ -20,4 +20,9 @@
               android:name="com.tripleThreads.taxiyaz.fragments.LoginFragment"
               android:label="fragment_login"
               tools:layout="@layout/fragment_login"/>
+
+    <fragment android:id="@+id/loading_fragment_dest"
+              android:name="com.tripleThreads.taxiyaz.fragments.LoadingFragment"
+              android:label="fragment_loading"
+              tools:layout="@layout/fragment_loading"/>
 </navigation>

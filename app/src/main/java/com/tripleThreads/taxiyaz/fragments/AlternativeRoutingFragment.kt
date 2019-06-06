@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.RouteListAdapter
 import kotlinx.android.synthetic.main.fragment_alternative_routing.view.*
-import com.tripleThreads.taxiyaz.Network.DataServiceGenerator
+import com.tripleThreads.taxiyaz.network.DataServiceGenerator
 import com.tripleThreads.taxiyaz.data.location.Location
 import com.tripleThreads.taxiyaz.data.route.Route
-import com.tripleThreads.taxiyaz.viewModel.routeViewModel
+import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ import java.net.SocketTimeoutException
 
 
 class AlternativeRoutingFragment : Fragment() {
-    lateinit var viewModel: routeViewModel
+    lateinit var viewModel: RouteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,7 @@ class AlternativeRoutingFragment : Fragment() {
         //Log.e("ATTACHMENT","attached")
 
 
-        viewModel = ViewModelProviders.of(this).get(routeViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
 
 
         viewModel.allRoutes.observe(this, Observer {

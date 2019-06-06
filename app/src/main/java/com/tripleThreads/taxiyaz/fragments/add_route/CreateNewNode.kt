@@ -1,4 +1,4 @@
-package com.tripleThreads.taxiyaz.fragments
+package com.tripleThreads.taxiyaz.fragments.add_route
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import com.google.android.gms.location.LocationListener
 import com.google.android.gms.maps.model.*
 
 
-class BestRouteFragment : Fragment() {
+class CreateNewNode : Fragment() {
     private lateinit var googleMap: GoogleMap
 
 
@@ -27,7 +27,7 @@ class BestRouteFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        val view = inflater.inflate(R.layout.fragment_best_route, container, false)
+        val view = inflater.inflate(R.layout.fragment_new_node, container, false)
 
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
             googleMap = mMap

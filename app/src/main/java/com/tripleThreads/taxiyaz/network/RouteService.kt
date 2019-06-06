@@ -1,10 +1,9 @@
-package com.tripleThreads.taxiyaz.Network
+package com.tripleThreads.taxiyaz.network
 
 
 
 import com.tripleThreads.taxiyaz.data.route.Route
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
