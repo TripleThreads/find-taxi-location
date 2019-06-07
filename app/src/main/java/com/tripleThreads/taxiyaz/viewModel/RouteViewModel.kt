@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.tripleThreads.taxiyaz.Network.DataServiceGenerator
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.route.Route
 import com.tripleThreads.taxiyaz.repository.RouteRepository
@@ -18,9 +19,14 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         val dao = TxYzDatabase.getDatabase(application).routeDao()
-        repository = RouteRepository(dao)
+        val routeService = application?.let { DataServiceGenerator().createRouteService(it)}
+        repository = RouteRepository(dao, routeService)
         allRoutes = repository.allRoutes
 
+    }
+
+    fun getRoutes(name: String){
+        repository.getByName(name)
     }
 
     fun insert(route: Route) = viewModelScope.launch(Dispatchers.IO) {

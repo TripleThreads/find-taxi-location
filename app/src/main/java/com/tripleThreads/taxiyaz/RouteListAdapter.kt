@@ -47,7 +47,7 @@ class RouteListAdapter(context: Context): RecyclerView.Adapter<RouteViewHolder>(
     override fun onBindViewHolder(holder: RouteViewHolder, position: Int) {
         val route = routes[position]
         holder.routeTitle.text = route.title
-        holder.routeGeo.text = route.locations[0].latitude.toString() +" "+route.locations[0].longitude.toString()
+       // holder.routeGeo.text = route.locations[0].latitude.toString() +" "+route.locations[0].longitude.toString()
         holder.routeHops.text = route.hops.toString()
         holder.routePrice.text = route.price.toString()
 

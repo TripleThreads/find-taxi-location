@@ -39,7 +39,7 @@ class AlternativeRoutingFragment : Fragment() {
         val activity1 = activity as Context
         var recyclerView = view.alternate_route_recycler_view
         var adapter = RouteListAdapter(activity1)
-        fetchRoute()
+        //fetchRoute()
         adapter.getRoutes()
         recyclerView.adapter =  adapter
         recyclerView.layoutManager = LinearLayoutManager(activity1)
@@ -59,51 +59,7 @@ class AlternativeRoutingFragment : Fragment() {
         return view
     }
 
-    fun fetchRoute(){
-        GlobalScope.launch(Dispatchers.IO) {
 
-            try {
-
-
-                val service = context?.let { DataServiceGenerator().createRouteService(it) }
-                if (service != null) {
-                    val response: Response<List<Route>> = service?.getAllRoutes()!!.await()
-                    val routes = response.body()
-
-                    if (routes != null) {
-                        withContext(Dispatchers.Main) {
-                            updateList(routes)
-                        }
-                    }
-                }
-                else{
-//                    Toast.makeText(context, "No Connection!!", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            catch(e:ConnectException){
-//                Looper.getMainLooper()
-//                Toast.makeText(context, "Server Down!!", Toast.LENGTH_SHORT).show()
-            }
-                //will fix after my nap
-                catch(e: SocketTimeoutException) {
-                    var array = ArrayList<Location>()
-                    array.add(Location(1, 12.1, 12.4))
-                    val routes = listOf(
-                        Route(1, "First one", 3, 33.2, array),
-                        Route(1, "First one", 3, 33.2, array),
-                        Route(1, "First one", 3, 33.2, locations = array),
-                        Route(1, "First one", 3, 33.2, locations = array),
-                        Route(1, "First one", 3, 33.2, locations = array)
-                    )
-                    updateList(routes)
-
-
-            }
-        }
-
-
-    }
 
 
 

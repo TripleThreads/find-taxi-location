@@ -21,11 +21,8 @@ class DataServiceGenerator {
             val builder = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .baseUrl("http://192.168.1.2:8080/")
+                .baseUrl("http://192.168.1.4:8080/")
             val httpClient = OkHttpClient.Builder()
-//            .readTimeout(90,TimeUnit.SECONDS)
-//            .connectTimeout(90,TimeUnit.SECONDS)
-//            .writeTimeout(90,TimeUnit.SECONDS)
                 .cache(null)
             if (BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor()
