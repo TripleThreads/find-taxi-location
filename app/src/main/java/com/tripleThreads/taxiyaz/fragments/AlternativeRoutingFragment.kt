@@ -82,8 +82,8 @@ class AlternativeRoutingFragment : Fragment() {
             }
 
             catch(e:ConnectException){
-                Looper.prepare()
-                Toast.makeText(context, "Server Down!!", Toast.LENGTH_SHORT).show()
+//                Looper.getMainLooper()
+//                Toast.makeText(context, "Server Down!!", Toast.LENGTH_SHORT).show()
             }
                 //will fix after my nap
                 catch(e: SocketTimeoutException) {
