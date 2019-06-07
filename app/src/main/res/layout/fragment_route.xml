@@ -5,6 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         tools:context=".fragments.RouteFragment">
 
     <EditText
@@ -27,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
+            android:focusableInTouchMode="true"
             app:layout_constraintBottom_toTopOf="@+id/tabs"/>
 
     <com.google.android.material.tabs.TabLayout
@@ -35,6 +38,8 @@
             android:layout_height="wrap_content"
             android:minHeight="10dp"
             app:tabGravity="fill"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/tab_text"
             app:tabIndicatorColor="@color/colorSearchDark"
             app:tabIndicatorHeight="4dp"
             app:tabBackground="@color/colorPrimary"

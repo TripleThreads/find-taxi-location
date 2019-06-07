@@ -7,4 +7,5 @@
     <color name="gray">#D3CCCC</color>
     <color name="pink">#F05D5D</color>
     <color name="strongPink">#FF4B4B</color>
+    <color name="black">#000</color>
 </resources>
