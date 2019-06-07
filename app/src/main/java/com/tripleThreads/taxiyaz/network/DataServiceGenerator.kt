@@ -15,7 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DataServiceGenerator {
 
     fun createRouteService(context: Context): RouteService? {
-        if(checkInternet(context) ) {
+        val connected = checkInternet(context)
+
+        if(connected != null && connected ) {
             val builder = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -38,10 +40,10 @@ class DataServiceGenerator {
 
     }
     companion object{
-        fun checkInternet(context: Context): Boolean {
+        fun checkInternet(context: Context): Boolean? {
             val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? =connectivityManager.activeNetworkInfo
-            return activeNetwork?.isConnectedOrConnecting!!
+            return activeNetwork?.isConnected
         }
     }
 }
