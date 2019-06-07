@@ -77,7 +77,7 @@ class AlternativeRoutingFragment : Fragment() {
                     }
                 }
                 else{
-                    Toast.makeText(context, "No Connection!!", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "No Connection!!", Toast.LENGTH_SHORT).show()
                 }
             }
 

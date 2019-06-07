@@ -19,6 +19,7 @@
     <string name="my_location">My current location</string>
     <string name="pin_map">Pin on map</string>
     <string name="taxi_location">Taxi Location</string>
+    <string name="register">Register</string>
 
 
 </resources>
