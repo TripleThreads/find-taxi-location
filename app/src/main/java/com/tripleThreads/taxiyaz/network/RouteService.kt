@@ -12,7 +12,7 @@ interface RouteService {
     fun getAllRoutes(): Deferred<Response<List<Route>>>
 
     @GET("/api/route")
-    fun getRouteByTitle(@Query("title") title: String): Deferred<List<Route>>
+    fun getRouteByTitle(@Query("title") title: String): Deferred<Response<List<Route>>>
 
     @POST("/api/route")
     fun addRoute(@Body route: Route)
