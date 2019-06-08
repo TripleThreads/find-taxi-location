@@ -1,14 +1,8 @@
 package com.tripleThreads.taxiyaz
 
-import android.Manifest
-import android.app.AlertDialog
-import android.content.pm.PackageManager
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
@@ -20,33 +14,28 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var userViewModel: UserViewModel
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
 
-            setContentView(R.layout.activity_main)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
+        setContentView(R.layout.activity_main)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
 
-            bottom_navigation.visibility = View.INVISIBLE
+        bottom_navigation.visibility = View.INVISIBLE
 
-            findNavController(R.id.nav_host).navigate(R.id.loading_fragment_dest)
+        findNavController(R.id.nav_host).navigate(R.id.loading_fragment_dest)
 
-            if (userViewModel.user == null) {
-                findNavController(R.id.nav_host).navigate(R.id.login_fragment_dest)}
+        if (userViewModel.user == null) {
+            findNavController(R.id.nav_host).navigate(R.id.login_fragment_dest)
+        } else {
+            findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest)
+            bottom_navigation.visibility = View.VISIBLE
+            bottom_navigation.selectedItemId = R.id.action_home
+        }
 
-            else {
-                findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest)
-                bottom_navigation.visibility = View.VISIBLE
-            }
-
-            bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
+        bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     val options = navOptions {
@@ -63,21 +52,19 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.nav_host).navigate(R.id.loading_fragment_dest, null, options)
             }
             R.id.action_settings -> {
-                findNavController(R.id.nav_host).navigate(R.id.settings_fragment_dest,null, options)
+                findNavController(R.id.nav_host).navigate(R.id.settings_fragment_dest, null, options)
             }
 
             R.id.action_home -> {
                 findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest, null, options)
             }
 
-            R.id.action_add ->{
+            R.id.action_add -> {
                 findNavController(R.id.nav_host).navigate(R.id.add_route_dest, null, options)
             }
         }
         true
     }
-
-
 
 
 }

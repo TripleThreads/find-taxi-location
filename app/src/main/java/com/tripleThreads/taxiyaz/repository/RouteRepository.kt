@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class RouteRepository(private val dao: RouteDao,val routeService: RouteService?) {
+class RouteRepository(private val dao: RouteDao, private val routeService: RouteService?) {
 
     var allRoutes: LiveData<List<Route>> = dao.getAllRoutes()
 
@@ -46,25 +46,23 @@ class RouteRepository(private val dao: RouteDao,val routeService: RouteService?)
     //network functions
 
     @WorkerThread
-    fun getRouteFromAPI(title: String){
-            GlobalScope.launch(Dispatchers.IO) {
+    fun getRouteFromAPI(title: String) {
+        GlobalScope.launch(Dispatchers.IO) {
 
-                    if (routeService != null) {
-                        val response: Response<List<Route>> = routeService.getAllRoutes()!!.await()
-                        val routes = response.body()
+            if (routeService != null) {
+                val response: Response<List<Route>> = routeService.getAllRoutesAsync().await()
+                val routes = response.body()
 
-                        if (routes != null) {
-                            withContext(Dispatchers.IO) {
-                                routes.forEach { route -> insert(route)}
-                            }
-                        }
+                if (routes != null) {
+                    withContext(Dispatchers.IO) {
+                        routes.forEach { route -> insert(route) }
                     }
-                    else{
-
-                    }
+                }
+            } else {
 
             }
 
+        }
 
 
     }

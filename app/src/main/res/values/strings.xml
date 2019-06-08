@@ -17,9 +17,11 @@
     <string name="add_node">Add Node</string>
     <string name="available_taxi">Available taxi</string>
     <string name="my_location">My current location</string>
-    <string name="pin_map">Pin on map</string>
+    <string name="pin_map">My pin on map</string>
     <string name="taxi_location">Taxi Location</string>
     <string name="register">Register</string>
-
+    <string name="location_description">Description of location</string>
+    <string name="location">Location</string>
+    <string name="submit">Submit</string>
 
 </resources>

@@ -1,24 +1,28 @@
 package com.tripleThreads.taxiyaz.fragments.add_route
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.*
-import com.tripleThreads.taxiyaz.R
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import android.annotation.SuppressLint
-import android.location.Location
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationListener
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.tripleThreads.taxiyaz.R
+import kotlinx.android.synthetic.main.fragment_new_node.view.*
 
-
+const val LATITUDE = "lat"
+const val LONGITUDE = "long"
 class CreateNewNode : Fragment() {
+    private lateinit var fab: FloatingActionButton
     private lateinit var googleMap: GoogleMap
-
+    private lateinit var marker: Marker
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
@@ -28,9 +32,33 @@ class CreateNewNode : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_new_node, container, false)
+        fab = view.floatingActionButton
+        var latitude = 0.0
+        var longitude = 0.0
 
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
             googleMap = mMap
+
+
+            googleMap.setOnMapClickListener { latLng ->
+                run {
+                    val options = MarkerOptions()
+                        .title("Test")
+                        .position(
+                            LatLng(
+                                latLng.latitude,
+                                latLng.longitude
+                            )
+                        )
+                    latitude = latLng.latitude
+                    longitude = latLng.longitude
+
+                    googleMap.clear()
+
+                    marker = mMap.addMarker(options)
+                }
+            }
+
 
             // For showing a move to my location button
             googleMap.isMyLocationEnabled = true
@@ -42,6 +70,22 @@ class CreateNewNode : Fragment() {
             // For zooming automatically to the location of the marker
             val cameraPosition = CameraPosition.Builder().target(addisAbaba).zoom(12f).build()
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
+
+        fab.setOnClickListener {
+            val bottomDialogFragment = BottomDialogFragment()
+            val bundle = Bundle()
+
+            if (latitude != 0.0 || longitude != 0.0) {
+                bundle.putDouble(LATITUDE, latitude)
+                bundle.putDouble(LONGITUDE, longitude)
+                bottomDialogFragment.arguments = bundle
+            }
+
+            bottomDialogFragment.show(
+                fragmentManager!!,
+                "add_photo_dialog_fragment"
+            )
         }
 
         return view

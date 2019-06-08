@@ -15,11 +15,11 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: RouteRepository
     val allRoutes: LiveData<List<Route>>
-    lateinit var searchedroute: LiveData<Route>
+    lateinit var searchedRoute: LiveData<Route>
 
     init {
         val dao = TxYzDatabase.getDatabase(application).routeDao()
-        val routeService = application?.let { DataServiceGenerator().createRouteService(it)}
+        val routeService = application.let { DataServiceGenerator().createRouteService(it)}
         repository = RouteRepository(dao, routeService)
         allRoutes = repository.allRoutes
 
@@ -42,7 +42,7 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getRouteByName(name:String) = viewModelScope.launch (Dispatchers.IO){
-        searchedroute = repository.getByName(name)
+        searchedRoute = repository.getByName(name)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
