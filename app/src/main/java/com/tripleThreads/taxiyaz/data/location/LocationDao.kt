@@ -19,4 +19,7 @@ interface LocationDao {
     @Delete
     fun deleteLocation(location: Location)
 
+    @Query("SELECT * FROM LOCATION WHERE id=:locationId")
+    fun getLocationById(locationId: Long) :LiveData<Location>
+
 }

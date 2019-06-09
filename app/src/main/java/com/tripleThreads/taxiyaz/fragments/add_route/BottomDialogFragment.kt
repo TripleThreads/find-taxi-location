@@ -31,7 +31,7 @@ class BottomDialogFragment : BottomSheetDialogFragment() {
 
         submit_node.setOnClickListener {
             if (gpsLocation.checkedRadioButtonId == R.id.radio_pinned) {
-                val location = Location(1, latitude!!, longitude!!)
+                val location = Location(1, "",latitude!!, longitude!!)
                 TODO("call view models to send it db")
             }
         }

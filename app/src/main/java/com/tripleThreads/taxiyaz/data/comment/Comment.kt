@@ -2,17 +2,13 @@ package com.tripleThreads.taxiyaz.data.comment
 
 import androidx.room.*
 import com.tripleThreads.taxiyaz.data.route.Route
-import com.tripleThreads.taxiyaz.data.user.User
 import org.jetbrains.annotations.NotNull
 import java.util.*
 
 
 @Entity(tableName = "Comments", foreignKeys = [
 
-    ForeignKey(entity = User::class,
-        parentColumns = arrayOf("phone_number"),
-        childColumns = arrayOf("userId"),
-        onDelete = ForeignKey.CASCADE),
+
 
     ForeignKey(
         entity = Route::class,

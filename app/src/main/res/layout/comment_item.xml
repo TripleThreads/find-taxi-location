@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              >
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/mtrl_card_spacing"
+            android:layout_marginTop="@dimen/mtrl_card_spacing"
+            android:layout_marginRight="@dimen/mtrl_card_spacing"
+            app:strokeColor="@color/cardview_dark_background"
+            app:strokeWidth="@dimen/cardview_compat_inset_shadow"
+
+
+    >
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/commenterUserName"
+                  android:text="heller"
+                  android:textSize="18dp"
+
+        />
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/comment"
+                  android:text="Comment place holder"
+                  android:layout_marginTop="20dp"
+        />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

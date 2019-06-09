@@ -3,25 +3,26 @@ package com.tripleThreads.taxiyaz.network
 
 
 import com.tripleThreads.taxiyaz.data.route.Route
+import com.tripleThreads.taxiyaz.data.APIHelpers.RouteAPI
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.*
 
 interface RouteService {
     @GET("/api/route/all")
-    fun getAllRoutesAsync(): Deferred<Response<List<Route>>>
+    fun getAllRoutes(): Deferred<Response<List<RouteAPI>>>
 
     @GET("/api/route")
-    fun getRouteByTitleAsync(@Query("title") title: String): Deferred<Response<List<Route>>>
+    fun getRouteByTitleAsync(@Query("title") title: String): Deferred<Response<List<RouteAPI>>>
 
     @POST("/api/route")
-    fun addRouteAsync(@Body route: Route)
+    fun addRoute(@Body route: Route): Deferred<Response<Void>>
 
-    @DELETE("/api/route")
-    fun deleteRouteAsync(@Path("id") id: Long)
+    @DELETE("/api/route/{id}")
+    fun deleteRoute(@Path("id") id: Long): Deferred<Response<Void>>
 
-    @PUT("/api/route")
-    fun editRouteAsync(@Path("id") id: Long, @Body route: Route)
+    @PUT("/api/route/{id}")
+    fun editRoute(@Path("id") id: Long, @Body route: Route): Deferred<Response<Void>>
 
 
 

@@ -22,7 +22,7 @@ import com.tripleThreads.taxiyaz.data.user.User
     )]
 )
 data class Rating(
-    @NonNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name="id") val id:Int,
-    @ColumnInfo(name="route_id") val routeId: Int,
+    @NonNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name="id") val id:Long,
+    @ColumnInfo(name="route_id") val routeId: Long,
     @ColumnInfo(name="userId") val userId: String,
     @ColumnInfo(name="rate") val rate:Double)

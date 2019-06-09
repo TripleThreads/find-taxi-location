@@ -7,7 +7,8 @@ import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "Location")
 data class Location(
-    @NotNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id:Int,
+    @NotNull @PrimaryKey @ColumnInfo(name = "id") val id:Long,
+    @ColumnInfo(name ="name") val name: String,
     @ColumnInfo(name = "latitude") val latitude: Double,
     @ColumnInfo(name="longitude") val longitude: Double
 )

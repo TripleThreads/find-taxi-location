@@ -7,8 +7,8 @@ import com.tripleThreads.taxiyaz.data.route.Route
 
 @Dao
 interface CommentDao {
-    @Query("SELECT * FROM Comments ORDER BY date")
-    fun getAllComments(): LiveData<List<Comment>>
+    @Query("SELECT * FROM Comments where route_id=:routeId ORDER BY date")
+    fun getAllComments(routeId: Long): LiveData<List<Comment>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertComment(comment: Comment)
