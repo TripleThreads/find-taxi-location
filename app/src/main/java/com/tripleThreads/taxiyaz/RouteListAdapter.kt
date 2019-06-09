@@ -5,17 +5,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.tripleThreads.taxiyaz.data.location.Location
 import com.tripleThreads.taxiyaz.data.route.Route
-import com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment
+import com.tripleThreads.taxiyaz.databinding.RouteCardViewItemBinding
 import com.tripleThreads.taxiyaz.fragments.OnItemClickListener
 import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import kotlinx.android.synthetic.main.route_card_view_item.view.*
 
-class RouteListAdapter(context: Context, onItemClickListener: OnItemClickListener): RecyclerView.Adapter<RouteViewHolder>() {
+class RouteListAdapter(context: Context, onItemClickListener: OnItemClickListener):
+    RecyclerView.Adapter<RouteViewHolder>() {
     private val inflater = LayoutInflater.from(context)
     private var routes = emptyList<Route>()
     private val onClick = onItemClickListener
@@ -55,6 +53,8 @@ class RouteListAdapter(context: Context, onItemClickListener: OnItemClickListene
 }
 
 class RouteViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
+
+
     fun bind(route: Route, onClick: OnItemClickListener) {
             itemView.setOnClickListener{
                 onClick.onItemClick(route)

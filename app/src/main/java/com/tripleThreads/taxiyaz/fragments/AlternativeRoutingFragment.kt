@@ -75,9 +75,6 @@ class AlternativeRoutingFragment : Fragment() {
         viewModel.deleteAll()
         routes.forEach { route -> route.locations =  array}
         routes.forEach { route -> viewModel.insert(route) }
-
-
-
     }
 
 

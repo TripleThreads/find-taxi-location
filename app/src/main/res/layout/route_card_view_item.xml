@@ -1,118 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   app:cardCornerRadius="5dp"
-                                   android:layout_margin="3dp"
->
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10"
-            android:layout_margin="5dp">
+<layout>
 
-        <ImageView android:layout_width="match_parent"
-                   android:layout_height="0dp"
-                   android:layout_weight="4"
-                   android:src="@drawable/ic_route"
-                   android:contentDescription="@string/route_image"/>
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="0dp"
-                      android:layout_weight="2"
-                      android:orientation="horizontal">
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       app:cardCornerRadius="5dp"
+                                       android:layout_margin="3dp"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="10"
+                android:layout_margin="5dp">
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="match_parent"
-                      android:text="Location: "
-                      android:layout_gravity="center"/>
-
-            <TextView
-                    android:id="@+id/location_title"
-                    android:layout_width="match_parent"
-                    android:text="Location"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="#2d2d2d"
-                    android:textSize="18sp"
-                    android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
+            <ImageView android:layout_width="match_parent"
+                       android:layout_height="0dp"
+                       android:layout_weight="4"
+                       android:src="@drawable/ic_route"
+                       android:contentDescription="@string/route_image"/>
 
             <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_weight="1">
+                          android:layout_height="0dp"
+                          android:layout_weight="2"
+                          android:orientation="horizontal">
 
                 <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:text="Price: "/>
+                          android:layout_height="match_parent"
+                          android:text="Location: "
+                          android:layout_gravity="center"/>
 
                 <TextView
-                        android:id="@+id/location_price"
-                        android:layout_height="20dp"
-                        android:layout_width="wrap_content"
-                        android:text="Price"
+                        android:id="@+id/location_title"
+                        android:layout_width="match_parent"
+                        android:text="Location"
                         android:layout_gravity="center"
+                        android:textAlignment="center"
                         android:textColor="#2d2d2d"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="12sp"
-                        android:layout_marginStart="5dp"/>
+                        android:textSize="18sp"
+                        android:layout_height="match_parent"/>
 
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1">
+
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Price: "/>
+
+                    <TextView
+                            android:id="@+id/location_price"
+                            android:layout_height="20dp"
+                            android:layout_width="wrap_content"
+                            android:text="Price"
+                            android:layout_gravity="center"
+                            android:textColor="#2d2d2d"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="12sp"
+                            android:layout_marginStart="5dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1">
+
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="match_parent"
+                              android:text="Hops:"/>
+
+
+                    <TextView
+                            android:id="@+id/location_hops"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Hops"
+                            android:layout_gravity="center"
+                            android:textColor="#2d2d2d"
+                            android:textSize="12sp"
+                            android:layout_marginStart="5dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="0dp"
                           android:layout_weight="1">
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="match_parent"
-                          android:text="Hops:"/>
+                          android:text="Rate: "/>
 
-
-                <TextView
-                        android:id="@+id/location_hops"
+                <RatingBar
+                        android:id="@+id/rating"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_marginTop="3dp"
+                        android:numStars="5"
+                        android:stepSize="0.1"
                         android:layout_marginLeft="5dp"
-                        android:text="Hops"
-                        android:layout_gravity="center"
-                        android:textColor="#2d2d2d"
-                        android:textSize="12sp"
+                        android:isIndicator="true"
                         android:layout_marginStart="5dp"/>
 
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="0dp"
-                      android:layout_weight="1">
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="match_parent"
-                      android:text="Rate: "/>
-
-            <RatingBar
-                    android:id="@+id/rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_marginTop="3dp"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:layout_marginLeft="5dp"
-                    android:isIndicator="true"
-                    android:layout_marginStart="5dp"/>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>
