@@ -17,7 +17,7 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
      var currentComments :LiveData<List<Comment>> = dao.getAllComments(8)
 
     @WorkerThread
-    fun getByRouteId(routeId: Int): LiveData<List<Comment>>{
+    fun getByRouteId(routeId: Long): LiveData<List<Comment>>{
 
         getCommentsFromAPI(routeId)
         currentComments = dao.getAllComments(routeId)
@@ -67,7 +67,7 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
 
     //network functions
 
-    private fun getCommentsFromAPI(routeId: Int){
+    private fun getCommentsFromAPI(routeId: Long){
         GlobalScope.launch(Dispatchers.IO){
             if(commentService != null){
                 val response: Response<List<CommentAPI>> = commentService.getCommentsForRoute(routeId)!!.await()

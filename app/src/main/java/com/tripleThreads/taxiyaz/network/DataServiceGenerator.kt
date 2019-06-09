@@ -7,6 +7,7 @@ import android.net.NetworkInfo
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tripleThreads.taxiyaz.BuildConfig
 import com.tripleThreads.taxiyaz.network.CommentService
+import com.tripleThreads.taxiyaz.network.LocationService
 import com.tripleThreads.taxiyaz.network.RouteService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DataServiceGenerator {
 
-    private val baseUrl = "http://192.168.1.6:8080/"
+    private val baseUrl = "http://10.6.204.25:8080/"
 
     fun createRouteService(context: Context): RouteService? {
         val connected = checkInternet(context)
@@ -67,6 +68,10 @@ class DataServiceGenerator {
 
         return null
 
+    }
+
+    fun createLocationService(application: Application): LocationService {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object{

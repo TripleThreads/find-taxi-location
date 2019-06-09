@@ -10,10 +10,13 @@ import com.google.android.gms.maps.*
 import com.tripleThreads.taxiyaz.R
 import com.google.android.gms.maps.GoogleMap
 import android.annotation.SuppressLint
+import android.app.Application
 import android.location.Location
+import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.maps.model.*
+import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
 
 
 class BestRouteFragment : Fragment() {
@@ -44,7 +47,24 @@ class BestRouteFragment : Fragment() {
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
 
+        val bestRoute = parentFragment as RouteFragment
+        bestRoute.publicViewModel?.allRoutes?.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val startId = it[0].startId
+                val destId = it[0].destinationId
+                setLocationOnMap(startId, destId)
+            }
+        })
+
         return view
+    }
+
+    private fun setLocationOnMap(startId: Long, destId: Long) {
+        val locationViewModel = LocationViewModel(context as Application)
+        val startLocation = locationViewModel.getLocationById(startId)
+        val endLocation = locationViewModel.getLocationById(destId)
+        //TODO Do your thing @segni
+
     }
 
 }
