@@ -6,6 +6,7 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="recent">Recent</string>
     <string name="settings">Settings</string>
+    <string name="start">Start</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello Settings fragment</string>
@@ -23,5 +24,9 @@
     <string name="location_description">Description of location</string>
     <string name="location">Location</string>
     <string name="submit">Submit</string>
+    <string name="comment">Please give as a comment about the road</string>
+    <string name="Rate">How much will you rate the road over all</string>
+    <string name="CommentHere">Comment here</string>
+
 
 </resources>
