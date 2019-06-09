@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.location.Location
-import kotlinx.android.synthetic.main.fragment_full_dialog.*
-import kotlinx.android.synthetic.main.fragment_full_dialog.view.*
+import com.tripleThreads.taxiyaz.databinding.FragmentBottomDialogBinding
 
 
 class BottomDialogFragment : BottomSheetDialogFragment() {
@@ -21,20 +21,24 @@ class BottomDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_full_dialog, container, false)
+        val binding = DataBindingUtil.inflate<FragmentBottomDialogBinding>(
+            inflater,
+            R.layout.fragment_bottom_dialog,
+            container,
+            false
+        )
+
         val latitude = arguments?.getDouble(LATITUDE)
         val longitude = arguments?.getDouble(LONGITUDE)
 
-        locationName = view.location_name
-        gpsLocation = view.gps_location
+        val location = Location(1, "", latitude!!, longitude!!)
 
-        submit_node.setOnClickListener {
-            if (gpsLocation.checkedRadioButtonId == R.id.radio_pinned) {
-                val location = Location(1, latitude!!, longitude!!)
-                TODO("call view models to send it db")
-            }
-        }
+        binding.location = location
+
+        val view = binding.root
+
         return view
     }
 }

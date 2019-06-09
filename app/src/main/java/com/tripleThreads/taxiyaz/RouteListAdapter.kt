@@ -62,7 +62,7 @@ class RouteViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
     }
 
     val routeTitle = itemView.location_title
-    val routeGeo = itemView.location_geo
+    val routeGeo = itemView.rating
     val routeHops = itemView.location_hops
     val routePrice = itemView.location_price
 

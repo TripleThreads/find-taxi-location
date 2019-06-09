@@ -71,7 +71,7 @@ class AlternativeRoutingFragment : Fragment() {
 
     private fun updateList(routes: List<Route>) {
         var array = ArrayList<Location>()
-        array.add(Location(1,12.1,12.4))
+        array.add(Location(1,"Test",12.1,12.4))
         viewModel.deleteAll()
         routes.forEach { route -> route.locations =  array}
         routes.forEach { route -> viewModel.insert(route) }

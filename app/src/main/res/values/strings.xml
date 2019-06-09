@@ -23,5 +23,8 @@
     <string name="location_description">Description of location</string>
     <string name="location">Location</string>
     <string name="submit">Submit</string>
+    <string name="route_image">Route image</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
 
 </resources>
