@@ -7,7 +7,7 @@ import com.tripleThreads.taxiyaz.data.route.Route
 
 @Dao
 interface RouteDao {
-    @Query("SELECT * FROM ROUTES ORDER BY TITLE")
+    @Query("SELECT * FROM ROUTES ORDER BY number_of_hops")
     fun getAllRoutes(): LiveData<List<Route>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

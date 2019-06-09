@@ -24,7 +24,7 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
             dao.insertRoute(route)
         }
         else{
-            //connection error
+            //TODO connection error
         }
     }
     @WorkerThread
@@ -39,17 +39,17 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
             dao.updateRoute(route)
         }
         else{
-            //connection error
+            //TODO connection error
         }
     }
 
     @WorkerThread
     fun delete(route: Route) {
-        if(deleteRoutefromAPI(route)) {
+        if(deleteRouteFromAPI(route)) {
             dao.deleteRoute(route)
         }
         else{
-            //connection error
+            //TODO connection error
         }
     }
 
@@ -80,7 +80,7 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
 
                         if (routes != null) {
                             withContext(Dispatchers.IO) {
-                                dao.deleteAll()
+                                //dao.deleteAll()
                                 routes.forEach { route -> cache(route.convertToRoute())}
                             }
                         }
@@ -117,7 +117,7 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
     }
 
     @WorkerThread
-    fun deleteRoutefromAPI(route: Route): Boolean {
+    fun deleteRouteFromAPI(route: Route): Boolean {
         var deleted= false
         GlobalScope.launch(Dispatchers.IO) {
             if(routeService != null){

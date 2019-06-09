@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface CommentService {
     @GET("api/comment/{id}")
-    fun getCommentsForRoute(@Path("id") routeId: Int): Deferred<Response<List<CommentAPI>>>
+    fun getCommentsForRoute(@Path("id") routeId: Long): Deferred<Response<List<CommentAPI>>>
 
     @POST("/api/comment")
     fun addComment(@Body comment: Comment): Deferred<Response<Void>>

@@ -7,7 +7,7 @@ import com.tripleThreads.taxiyaz.data.route.Route
 import java.io.Serializable
 
 class RouteAPI (
-   val routeId:Int,
+   val routeId:Long,
    val title: String,
     val hops: Int,
     val price: Double,
@@ -17,7 +17,7 @@ class RouteAPI (
 ): Serializable{
     fun convertToRoute(): Route {
         val route =
-            Route(this.routeId, this.title, this.hops, this.price, this.locations)
+            Route(this.routeId, this.title, this.start.id,this.destination.id,this.hops, this.price, this.locations)
         return route
     }
 

@@ -25,7 +25,7 @@ class CommentViewModel(application: Application): AndroidViewModel(application) 
 
     }
 
-    fun getComments(routeId:Int) =viewModelScope.launch(Dispatchers.IO){
+    fun getComments(routeId:Long) =viewModelScope.launch(Dispatchers.IO){
         comments = repository.getByRouteId(routeId)
 
     }

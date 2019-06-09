@@ -22,7 +22,7 @@ import com.tripleThreads.taxiyaz.data.user.UserDao
         Comment::class,
         Location::class,
         Rating::class],
-    version = 1)
+    version = 2)
 abstract class TxYzDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -30,6 +30,7 @@ abstract class TxYzDatabase : RoomDatabase() {
     abstract fun commentDao(): CommentDao
     abstract fun locationDao(): LocationDao
     abstract fun ratingDao(): RatingDao
+
 
 
     companion object {
@@ -45,10 +46,13 @@ abstract class TxYzDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TxYzDatabase::class.java, "TxYzDatabase"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }
         }
     }
+
 }

@@ -4,6 +4,7 @@ package com.tripleThreads.taxiyaz.fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_route.*
 
 
 class AlternativeRoutingFragment : Fragment() {
-    lateinit var viewModel: RouteViewModel
+     var viewModel: RouteViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,16 +51,34 @@ class AlternativeRoutingFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity1)
         recyclerView.setHasFixedSize(true)
 
+        val parent = parentFragment as RouteFragment
 
-        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
 
-        Log.d("check", "In fragment")
-        viewModel.getRoutes("MexicoTo6kilo")
+        parent.searchEdit.setOnKeyListener { v, keyCode, event ->
+            if(event?.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER){
+                val changed = parentFragment as RouteFragment
+                viewModel = changed.publicViewModel
 
-        viewModel.allRoutes.observe(this, Observer {
-            routes -> routes.let { adapter.setRoutes(routes) }
+                if(viewModel == null){
+                    Log.d("parent", "is null")
+                }
 
-        })
+                Log.d("check", "In fragment")
+
+                viewModel?.allRoutes?.observe(this, Observer {
+
+                        routes -> routes.let {
+                    adapter.setRoutes(routes)
+                    Log.d("check", "observed")
+                }
+
+                })
+
+
+            }
+            true
+        }
+
 
 
         return view
@@ -69,16 +88,7 @@ class AlternativeRoutingFragment : Fragment() {
 
 
 
-    private fun updateList(routes: List<Route>) {
-        var array = ArrayList<Location>()
-        array.add(Location(1,12.1,12.4))
-        viewModel.deleteAll()
-        routes.forEach { route -> route.locations =  array}
-        routes.forEach { route -> viewModel.insert(route) }
 
-
-
-    }
 
 
 

@@ -12,9 +12,11 @@ import java.io.Serializable
 @Entity(tableName = "Routes")
 @TypeConverters(LocationConverter::class)
 class Route (
-    @NonNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name="route_id") val routeId:Int,
+    @NonNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name="route_id") val routeId:Long,
     @ColumnInfo(name = "title")val title: String,
+    @ColumnInfo(name = "start_node") val startId: Long,
+    @ColumnInfo(name ="destination_node") val destinationId: Long,
     @ColumnInfo(name = "number_of_hops")val hops: Int,
     @ColumnInfo(name = "price")val price: Double,
-    @SerializedName("stops") @ColumnInfo(name = "locations") var locations: ArrayList<Location>
+    @ColumnInfo(name = "locations") var locations: ArrayList<Location>
 ):Serializable
