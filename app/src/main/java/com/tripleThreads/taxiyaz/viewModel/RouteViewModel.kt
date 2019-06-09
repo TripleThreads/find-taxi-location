@@ -1,6 +1,7 @@
 package com.tripleThreads.taxiyaz.viewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 class RouteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: RouteRepository
-    val allRoutes: LiveData<List<Route>>
+    var allRoutes: LiveData<List<Route>>
     lateinit var searchedRoute: LiveData<Route>
 
     init {
@@ -26,7 +27,8 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getRoutes(name: String){
-        repository.getByName(name)
+        Log.d("check", "In ViewModel")
+        allRoutes = repository.getByName(name)
     }
 
     fun insert(route: Route) = viewModelScope.launch(Dispatchers.IO) {
@@ -42,7 +44,7 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getRouteByName(name:String) = viewModelScope.launch (Dispatchers.IO){
-        searchedRoute = repository.getByName(name)
+        //searchedRoute = repository.getByName(name)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO){

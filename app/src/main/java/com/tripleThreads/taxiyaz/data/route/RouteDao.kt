@@ -19,8 +19,8 @@ interface RouteDao {
     @Delete
     fun deleteRoute(route: Route)
 
-    @Query("SELECT * FROM ROUTES WHERE TITLE = :title LIMIT 1")
-    fun getRouteByName(title:String):LiveData<Route>
+    @Query("SELECT * FROM ROUTES WHERE TITLE = :title ORDER BY price")
+    fun getRouteByName(title:String):LiveData<List<Route>>
 
     @Query("DELETE FROM ROUTES")
     fun deleteAll()
