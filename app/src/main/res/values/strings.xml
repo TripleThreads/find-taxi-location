@@ -26,5 +26,8 @@
     <string name="route_image">Route image</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
+    <string name="rate">Rate</string>
+    <string name="comment_here">Comment here</string>
+    <string name="comment">Comment</string>
 
 </resources>

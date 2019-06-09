@@ -1,47 +1,41 @@
 package com.tripleThreads.taxiyaz.fragments
 
+
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.*
-import com.tripleThreads.taxiyaz.R
-import com.google.android.gms.maps.GoogleMap
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.location.Location
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.maps.model.*
-
-import android.content.pm.PackageManager
-import android.graphics.Color
-
-import android.os.Looper
-
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
-
-
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.maps.android.PolyUtil
 import com.google.maps.android.SphericalUtil
+import com.tripleThreads.taxiyaz.R
 import kotlinx.android.synthetic.main.fragment_best_route.view.*
-
-
 import org.jetbrains.anko.doAsync
-
 import org.jetbrains.anko.uiThread
 import java.io.StringReader
 import java.net.URL
-
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,15 +43,15 @@ import java.util.*
 const val INTERVAL: Long = 1000 * 60 * 1
 const val FASTEST_INTERVAL: Long = 1000 * 60 * 1
 
-class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, GoogleApiClient.ConnectionCallbacks,
+class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
     private lateinit var mLocationRequest: LocationRequest
-    private lateinit var startRoute:FloatingActionButton
+    private lateinit var startRoute: FloatingActionButton
     private lateinit var mCurrentLocation: Location
-    private lateinit var destination:LatLng
-    private lateinit var origin:LatLng
-    private var mDistance:Double = 0.0
-    private var mDistanceLocatonChanged:Double=0.0
+    private lateinit var destination: LatLng
+    private lateinit var origin: LatLng
+    private var mDistance: Double = 0.0
+    private var mDistanceLocationChanged: Double = 0.0
     private lateinit var mLastUpdateTime: String
     private lateinit var googleMap: GoogleMap
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
@@ -71,8 +65,8 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
     }
 
     override fun onMapReady(mMap: GoogleMap?) {
-        googleMap= mMap!!
-        googleMap.uiSettings.isZoomControlsEnabled=true
+        googleMap = mMap!!
+        googleMap.uiSettings.isZoomControlsEnabled = true
 
 
     }
@@ -99,27 +93,27 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
             return
         }
 
-        mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+        mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
 
     }
 
     private fun stopLocationUpdates() {
-        mFusedLocationProviderClient!!.removeLocationUpdates(mLocationCallback)
+        mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback)
 
     }
 
     override fun onLocationChanged(location: Location?) {
         mCurrentLocation = location!!
-        origin= LatLng(mCurrentLocation.latitude,mCurrentLocation.longitude)
+        origin = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
         if (mCurrentLocation != null) {
             //update the ui from here
-            mDistanceLocatonChanged=SphericalUtil.computeDistanceBetween(origin,destination)
+            mDistanceLocationChanged = SphericalUtil.computeDistanceBetween(origin, destination)
             val date: Date = Calendar.getInstance().time
             val sdf = SimpleDateFormat("hh:mm:ss a")
             mLastUpdateTime = sdf.format(date)
             (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
                 googleMap = mMap
-               val latlng = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
+                val latlng = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
                 googleMap.addMarker(MarkerOptions().position(latlng).title("Updated at").snippet(mLastUpdateTime))
             }
 
@@ -150,7 +144,7 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
         val view = inflater.inflate(R.layout.fragment_best_route, container, false)
         startRoute = view.start_route
         startRoute.setOnClickListener {
-           calculatePathLeft()
+            calculatePathLeft()
             startLocationUpdates()
             drawPath()
 
@@ -172,7 +166,7 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
 
 
                 // For dropping a marker at a point on the Map
-                val ME = LatLng(mCurrentLocation.latitude,mCurrentLocation.longitude)
+                val ME = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
                 googleMap.addMarker(MarkerOptions().position(ME).title("Marker Title").snippet("Marker Description"))
 
 
@@ -181,12 +175,10 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
             }
-            }
-
-            return view
         }
 
-
+        return view
+    }
 
 
     private fun getURL(from: LatLng, to: LatLng): String {
@@ -196,18 +188,19 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
         val params = "$origin&$dest&$sensor"
         return "https://maps.googleapis.com/maps/api/directions/json?$params&key=AIzaSyCdEVa9S65-lcJHoYWUq1MHOrrbjjohd1k"
     }
+
     @SuppressLint("MissingPermission")
-    private fun drawPath(){
+    private fun drawPath() {
         val latLngBound = LatLngBounds.Builder()
         val options = PolylineOptions()
         options.color(Color.RED)
         options.width(5f)
 
 
-         destination=LatLng(9.59306, 41.86611)
-       origin=LatLng(mCurrentLocation.latitude,mCurrentLocation.longitude)
-        val url = getURL(origin,destination)
-        mDistance=SphericalUtil.computeDistanceBetween(origin,destination)
+        destination = LatLng(9.59306, 41.86611)
+        origin = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
+        val url = getURL(origin, destination)
+        mDistance = SphericalUtil.computeDistanceBetween(origin, destination)
 
         doAsync {
             val result = URL(url).readText()
@@ -229,31 +222,31 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback,LocationListener, Googl
                 }
                 options.add(origin)
                 latLngBound.include(origin)
-                googleMap!!.addPolyline(options)
+                googleMap.addPolyline(options)
                 val bounds = latLngBound.build()
-                googleMap!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
 
 
             }
         }
 
     }
-private fun calculatePathLeft(){
-    //display the comment and rate fragment every 25% of the path traveled
-    //if the distance is equal to 25% of the distancelocationchanged
 
-   val builder=AlertDialog.Builder(this.requireContext()!!)
-    val inflater=requireActivity().layoutInflater
-    builder.setView(inflater.inflate(R.layout.fragment_comment_and__rating,null))
-        .setNegativeButton("Cancel",DialogInterface.OnClickListener { dialog, which ->
-            dialog.cancel()  }
+    private fun calculatePathLeft() {
+        //display the comment and rate fragment every 25% of the path traveled
+        //if the distance is equal to 25% of the distancelocationchanged
 
-        )
-    builder.create()
-    builder.show()
+        val builder = AlertDialog.Builder(this.requireContext())
+        val inflater = requireActivity().layoutInflater
+        builder.setView(inflater.inflate(R.layout.fragment_comment_and_rating, null))
+            .setNegativeButton(
+                "Cancel"
+            ) { dialog, which ->
+                dialog.cancel()
+            }
+        builder.create()
+        builder.show()
 
-
-
-}
+    }
 }
 

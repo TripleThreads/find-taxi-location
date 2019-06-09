@@ -115,5 +115,5 @@ dependencies {
 
     implementation 'com.beust:klaxon:5.0.1'
 
-    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
 }

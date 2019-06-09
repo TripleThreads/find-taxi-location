@@ -1,5 +1,6 @@
 package com.tripleThreads.taxiyaz.data.location
 
+import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,4 +13,4 @@ data class Location(
     @Bindable @ColumnInfo(name = "name") val name: String,
     @Bindable @ColumnInfo(name = "latitude") val latitude: Double,
     @Bindable @ColumnInfo(name="longitude") val longitude: Double
-)
+): BaseObservable()

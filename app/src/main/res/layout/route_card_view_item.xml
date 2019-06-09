@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable name="route" type="com.tripleThreads.taxiyaz.data.route.Route"/>
+    </data>
 
+    <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="3dp">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                       xmlns:app="http://schemas.android.com/apk/res-auto"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       app:cardCornerRadius="5dp"
-                                       android:layout_margin="3dp"
-    >
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -35,7 +38,7 @@
                 <TextView
                         android:id="@+id/location_title"
                         android:layout_width="match_parent"
-                        android:text="Location"
+                        android:text="@{route.title}"
                         android:layout_gravity="center"
                         android:textAlignment="center"
                         android:textColor="#2d2d2d"
@@ -60,7 +63,7 @@
                             android:id="@+id/location_price"
                             android:layout_height="20dp"
                             android:layout_width="wrap_content"
-                            android:text="Price"
+                            android:text="@{Double.toString(route.price)}"
                             android:layout_gravity="center"
                             android:textColor="#2d2d2d"
                             android:layout_marginTop="2dp"
@@ -85,7 +88,7 @@
                             android:layout_height="20dp"
                             android:layout_marginTop="2dp"
                             android:layout_marginLeft="5dp"
-                            android:text="Hops"
+                            android:text="@{route.hops}"
                             android:layout_gravity="center"
                             android:textColor="#2d2d2d"
                             android:textSize="12sp"
