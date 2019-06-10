@@ -2,6 +2,7 @@ package com.tripleThreads.taxiyaz
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -19,10 +20,6 @@ class RouteListAdapter(context: Context, onItemClickListener: OnItemClickListene
     private val onClick = onItemClickListener
 
     lateinit var viewModel: RouteViewModel
-    fun getRoutes(): List<Route> {
-        routes = emptyList()
-        return routes;
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteViewHolder {
         val recyclerViewItem = DataBindingUtil.inflate<RouteCardViewItemBinding>(
@@ -30,7 +27,6 @@ class RouteListAdapter(context: Context, onItemClickListener: OnItemClickListene
             R.layout.route_card_view_item,
             parent, false
         )
-
 
         return RouteViewHolder(recyclerViewItem)
     }
@@ -41,11 +37,14 @@ class RouteListAdapter(context: Context, onItemClickListener: OnItemClickListene
         //viewModel = ViewModelProviders.of(AlternativeRoutingFragment()).get(RouteViewModel::class.java)
         holder.routeCardViewBinding.route = routes[position]
         holder.bind(routes[position], onClick)
+        Log.e("bind", routes[position].title)
     }
 
     internal fun setRoutes(routes: List<Route>) {
         this.routes = routes
+        Log.e("setRoutes", routes.toString())
         notifyDataSetChanged()
+        Log.e("getItemCount", itemCount.toString())
     }
 
 }

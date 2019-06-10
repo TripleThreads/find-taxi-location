@@ -22,7 +22,7 @@ import com.tripleThreads.taxiyaz.data.user.UserDao
         Comment::class,
         Location::class,
         Rating::class],
-    version = 3)
+    version = 5)
 abstract class TxYzDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

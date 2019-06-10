@@ -4,25 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.location.Location
 import com.tripleThreads.taxiyaz.databinding.FragmentBottomDialogBinding
+import com.tripleThreads.taxiyaz.utility.TxYzUtility
 import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
 
 
 class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListener {
 
-    lateinit var locationViewModel: LocationViewModel
+    //lateinit var locationViewModel: LocationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+//        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
 
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentBottomDialogBinding>(
@@ -39,14 +39,13 @@ class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListe
 
         binding.location = location
         binding.handler = this
+        binding.converter = TxYzUtility()
 
-        val view = binding.root
-
-        return view
+        return binding.root
     }
 
     override fun onButtonClick(location: Location) {
-        locationViewModel.insert(location)
+       // locationViewModel.insert(location)
         this.dismiss()
     }
 }

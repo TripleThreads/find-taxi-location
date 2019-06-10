@@ -31,10 +31,10 @@ class AlternativeRoutingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
+        val view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
         val activity1 = activity as Context
-        var recyclerView = view.alternate_route_recycler_view
-        var adapter = RouteListAdapter(activity1, object : OnItemClickListener {
+        val recyclerView = view.alternate_route_recycler_view
+        val adapter = RouteListAdapter(activity1, object : OnItemClickListener {
             override fun onItemClick(route: Route) {
                 Toast.makeText(context, "Clicked",Toast.LENGTH_SHORT).show()
                 val args = Bundle()
@@ -45,21 +45,21 @@ class AlternativeRoutingFragment : Fragment() {
             }
         })
 
-        adapter.getRoutes()
-        recyclerView.adapter =  adapter
+        adapter.setRoutes(listOf(Route(1, "TEst", 2, 4, 1, 1.2, 2.5F, ArrayList())))
+
         recyclerView.layoutManager = LinearLayoutManager(activity1)
+        recyclerView.adapter =  adapter
         recyclerView.setHasFixedSize(true)
 
 
-        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
-
-        Log.d("check", "In fragment")
-        viewModel.getRoutes("MexicoTo6kilo")
-
-        viewModel.allRoutes.observe(this, Observer {
-            routes -> routes.let { adapter.setRoutes(routes) }
-
-        })
+//        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
+//
+//        Log.d("check", "In fragment")
+//        viewModel.getRoutes("MexicoTo6kilo")
+//
+//        viewModel.allRoutes.observe(this, Observer {
+//            routes -> routes.let { adapter.setRoutes(routes) }
+//        })
 
 
         return view

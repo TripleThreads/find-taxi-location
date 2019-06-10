@@ -44,8 +44,8 @@ class CommentsFragment : Fragment() {
 
 
         val activityContext = activity as Context
-        var recyclerView = view.commentsRecycler
-        var adapter = CommentListAdapter(activityContext)
+        val recyclerView = view.commentsRecycler
+        val adapter = CommentListAdapter(activityContext)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activityContext)
         recyclerView.setHasFixedSize(true)
@@ -58,11 +58,13 @@ class CommentsFragment : Fragment() {
 
         })
 
+        val routeMap = BestRouteFragment()
+
+        childFragmentManager.beginTransaction()
+            .replace(R.id.route_fragment_viewpager, routeMap)
+            .commit()
         return view
     }
-
-
-
 
     inner class CommentListAdapter(context: Context) : RecyclerView.Adapter<CommentListAdapter.CommentViewHolder>(){
         var comments: List<Comment> = emptyList()
