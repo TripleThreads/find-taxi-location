@@ -9,6 +9,6 @@ class CommentAPI (
      val userId: Long,
      val comment: String){
     fun convertToComment(): Comment{
-        return Comment(this.id.toInt(),this.routeId.toInt(),this.userId.toString(),this.comment, Date() )
+        return Comment(this.id.toInt(),this.routeId,this.userId.toString(),this.comment, Date() )
     }
 }

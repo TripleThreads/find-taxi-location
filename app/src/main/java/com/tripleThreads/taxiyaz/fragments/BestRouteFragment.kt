@@ -42,6 +42,7 @@ import java.util.*
 
 const val INTERVAL: Long = 1000 * 60 * 1
 const val FASTEST_INTERVAL: Long = 1000 * 60 * 1
+const val ROUTE_KEY_COMMENT = "ROUTE_KEY_FOR_COMMENT"
 
 class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
@@ -236,16 +237,14 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
         //display the comment and rate fragment every 25% of the path traveled
         //if the distance is equal to 25% of the distancelocationchanged
 
-        val builder = AlertDialog.Builder(this.requireContext())
-        val inflater = requireActivity().layoutInflater
-        builder.setView(inflater.inflate(R.layout.fragment_comment_and_rating, null))
-            .setNegativeButton(
-                "Cancel"
-            ) { dialog, which ->
-                dialog.cancel()
-            }
-        builder.create()
-        builder.show()
+        val dialog = CommentAndRatingFragment()
+        val bundle = Bundle()
+        bundle.putString(ROUTE_KEY_COMMENT, "")
+        dialog.arguments = bundle
+        dialog.show(
+            fragmentManager!!,
+            "add_comment_dialog"
+        )
 
     }
 }

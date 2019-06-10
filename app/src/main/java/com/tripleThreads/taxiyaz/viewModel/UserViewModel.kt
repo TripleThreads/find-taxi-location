@@ -1,6 +1,7 @@
 package com.tripleThreads.taxiyaz.viewModel
 
 import android.app.Application
+import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
@@ -10,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
+    private var name: String = ""
 
     private val repository: UserRepository
     var user: User? = null
@@ -33,4 +35,5 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun delete(user: User) = viewModelScope.launch (Dispatchers.IO){
         repository.delete(user)
     }
+
 }

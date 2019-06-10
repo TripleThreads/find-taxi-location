@@ -84,7 +84,7 @@ class CreateNewNode : Fragment() {
 
             bottomDialogFragment.show(
                 fragmentManager!!,
-                "add_photo_dialog_fragment"
+                "add_node_dialog"
             )
         }
 

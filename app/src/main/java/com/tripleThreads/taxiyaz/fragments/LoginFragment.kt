@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -27,6 +28,7 @@ class LoginFragment : Fragment(), UserViewModelEventListeners {
     private val locationAccessKey = 1
 
     override fun onButtonClick(user: User) {
+        Toast.makeText(context, user.name, Toast.LENGTH_LONG).show()
         userViewModel.insert(user)
         findNavController().navigate(R.id.route_fragment_dest)
         activity!!.bottom_navigation.visibility = View.VISIBLE

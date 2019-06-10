@@ -1,5 +1,7 @@
 package com.tripleThreads.taxiyaz.data.comment
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.room.*
 import com.tripleThreads.taxiyaz.data.route.Route
 import org.jetbrains.annotations.NotNull
@@ -20,7 +22,7 @@ import java.util.*
 @TypeConverters(DateConverter::class)
 data class Comment(
     @NotNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id:Int,
-    @ColumnInfo(name="route_id") val routeId: Int,
+    @ColumnInfo(name="route_id") var routeId: Long,
     @ColumnInfo(name="userId") val userId: String,
-    @ColumnInfo(name="comment") val comment: String,
-    @ColumnInfo(name = "date") val date: Date)
+    @Bindable @ColumnInfo(name="comment") val comment: String,
+    @ColumnInfo(name = "date") val date: Date): BaseObservable()

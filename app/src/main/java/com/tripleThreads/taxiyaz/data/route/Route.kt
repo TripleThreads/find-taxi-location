@@ -18,5 +18,6 @@ class Route (
     @ColumnInfo(name ="destination_node") val destinationId: Long,
     @ColumnInfo(name = "number_of_hops")val hops: Int,
     @ColumnInfo(name = "price")val price: Double,
+    @ColumnInfo(name = "rating")val rating: Float,
     @ColumnInfo(name = "locations") var locations: ArrayList<Location>
 ):Serializable
