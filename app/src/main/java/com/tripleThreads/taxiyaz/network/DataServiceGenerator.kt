@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DataServiceGenerator {
 
-    private val baseUrl = "http://10.6.204.25:8080/"
+    private val baseUrl = "http://10.42.0.1:8080/"
 
     fun createRouteService(context: Context): RouteService? {
         val connected = checkInternet(context)
@@ -70,8 +70,30 @@ class DataServiceGenerator {
 
     }
 
-    fun createLocationService(application: Application): LocationService {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun createLocationService(application: Application): LocationService? {
+        val connected = checkInternet(application)
+
+        if(connected != null && connected ) {
+            try {
+                val builder = Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                    .baseUrl(baseUrl)
+                val httpClient = OkHttpClient.Builder()
+                    .cache(null)
+                if (BuildConfig.DEBUG) {
+                    val interceptor = HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BODY)
+                    httpClient.addInterceptor(interceptor)
+                }
+                builder.client(httpClient.build())
+                val retrofit = builder.build()
+                return retrofit.create(LocationService::class.java)
+            }
+            catch (e: Exception){}
+        }
+
+        return null
     }
 
     companion object{

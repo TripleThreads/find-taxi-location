@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.tripleThreads.taxiyaz.Network.DataServiceGenerator
+import com.tripleThreads.taxiyaz.data.APIHelpers.NodeConnection
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.route.Route
 import com.tripleThreads.taxiyaz.repository.RouteRepository
@@ -26,12 +27,13 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getRoutes(name: String){
+    fun getRoutes(name: String): LiveData<List<Route>> {
         Log.d("check", "In ViewModel")
         allRoutes = repository.getByName(name)
+        return allRoutes
     }
 
-    fun insert(route: Route) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(route: NodeConnection) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(route)
     }
 

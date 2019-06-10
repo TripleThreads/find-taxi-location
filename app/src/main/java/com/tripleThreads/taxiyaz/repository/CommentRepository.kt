@@ -26,12 +26,13 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
     }
 
     @WorkerThread
-    fun insert(comment: Comment){
+    fun insert(comment: Comment): Boolean{
         if(insertCommentToAPI(comment)) {
             dao.insertComment(comment)
+            return true
         }
         else{
-            //connection problem
+            return false
         }
     }
     @WorkerThread
@@ -64,7 +65,7 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
 //        }
 
     }
-
+    
     //network functions
 
     private fun getCommentsFromAPI(routeId: Long){
@@ -74,7 +75,7 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
                 val comments = response.body()
                 if(comments !=null){
                     withContext(Dispatchers.IO){
-                       // comments.forEach { comment ->  cache(comment.convertToComment())}
+                        comments.forEach { comment ->  cache(comment.convertToComment())}
                     }
                 }
 

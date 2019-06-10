@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class LocationRepository(private val dao: LocationDao, private val locationService: LocationService) {
+class LocationRepository(private val dao: LocationDao, private val locationService: LocationService?) {
     var allLocations: LiveData<List<Location>> = dao.getAllLocations()
 
     @WorkerThread
@@ -27,12 +27,12 @@ class LocationRepository(private val dao: LocationDao, private val locationServi
     }
 
     @WorkerThread
-    fun insert(location: Location){
-        if (insertLocationToAPI(location)){
+    fun insert(location: Location):Boolean{
+        return if (insertLocationToAPI(location)){
             dao.insertLocation(location)
-        }
-        else{
-            //TODO alert connection problem
+            true
+        } else{
+            false
         }
 
     }

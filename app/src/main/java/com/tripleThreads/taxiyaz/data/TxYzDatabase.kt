@@ -47,7 +47,6 @@ abstract class TxYzDatabase : RoomDatabase() {
                     context.applicationContext,
                     TxYzDatabase::class.java, "TxYzDatabase"
                 )
-                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance

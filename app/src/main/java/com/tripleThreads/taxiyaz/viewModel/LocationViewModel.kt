@@ -26,8 +26,13 @@ class LocationViewModel (application: Application): AndroidViewModel(application
         allLocations = repository.getAll()
     }
 
-    fun insert(location: Location) = viewModelScope.launch(Dispatchers.IO){
-        repository.insert(location)
+    fun insert(location: Location): Boolean {
+        var added = false
+        viewModelScope.launch(Dispatchers.IO) {
+             repository.insert(location)
+            added = true
+        }
+        return added
     }
     fun update(location: Location) = viewModelScope.launch(Dispatchers.IO){
         //TODO kasfelege

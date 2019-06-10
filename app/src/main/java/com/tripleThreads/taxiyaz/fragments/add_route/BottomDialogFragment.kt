@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,13 +17,13 @@ import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
 
 class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListener {
 
-    lateinit var locationViewModel: LocationViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+        //locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
 
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentBottomDialogBinding>(
@@ -46,8 +47,13 @@ class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListe
     }
 
     override fun onButtonClick(location: Location) {
-        locationViewModel.insert(location)
-        this.dismiss()
+        //locationViewModel.insert(location)
+        var locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+        if(locationViewModel.insert(location)) {
+            this.dismiss()
+        } else{
+            Toast.makeText(context,"Network Required", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

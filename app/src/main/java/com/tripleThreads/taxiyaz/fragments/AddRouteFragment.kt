@@ -5,12 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.maps.GoogleMap
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.ViewPagerAdapter
+import com.tripleThreads.taxiyaz.data.APIHelpers.NodeConnection
+import com.tripleThreads.taxiyaz.data.location.Location
 import com.tripleThreads.taxiyaz.fragments.add_route.AddTaxiToNodeFragment
 import com.tripleThreads.taxiyaz.fragments.add_route.CreateNewNode
+import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
+import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import kotlinx.android.synthetic.main.fragment_route.*
 import kotlinx.android.synthetic.main.fragment_route.view.*
 
@@ -39,6 +45,15 @@ class AddRouteFragment : Fragment() {
         view.tabs.setupWithViewPager(view_pager_route)
         view.tabs.getTabAt(0)?.setIcon(R.drawable.ic_local_taxi_black_24dp)
         view.tabs.getTabAt(1)?.setIcon(R.drawable.ic_add_location_black_24dp)
+    }
+
+    //TODO add this to button click
+    fun onButtonClick(listOfRoute: List<NodeConnection>) {
+        val routeViewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
+        listOfRoute.forEach {
+            route -> routeViewModel.insert(route)
+        }
+
     }
 
 }

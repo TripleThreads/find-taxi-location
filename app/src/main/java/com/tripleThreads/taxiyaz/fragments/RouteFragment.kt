@@ -37,11 +37,12 @@ class RouteFragment : Fragment() {
 
 
         searchEdit = view.search_bar
+
         searchEdit.setOnKeyListener { v, keyCode, event ->
             if(event?.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER){
                 var viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
                 publicViewModel = viewModel
-                viewModel.getRoutes(searchEdit.text.toString().trim())
+                publicViewModel!!.allRoutes = viewModel.getRoutes(searchEdit.text.toString().trim())
                 Log.d("check", "observed")
 
             }

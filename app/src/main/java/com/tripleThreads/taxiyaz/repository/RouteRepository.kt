@@ -3,6 +3,7 @@ package com.tripleThreads.taxiyaz.repository
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import com.tripleThreads.taxiyaz.data.APIHelpers.NodeConnection
 import com.tripleThreads.taxiyaz.data.route.RouteDao
 import com.tripleThreads.taxiyaz.data.route.Route
 import com.tripleThreads.taxiyaz.data.APIHelpers.RouteAPI
@@ -19,9 +20,9 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
 
 
     @WorkerThread
-    fun insert(route: Route) {
+    fun insert(route: NodeConnection) {
         if(insertRouteToAPI(route)) {
-            dao.insertRoute(route)
+            //dao.insertRoute(route)
         }
         else{
             //TODO connection error
@@ -93,7 +94,7 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
     }
 
     @WorkerThread
-    fun insertRouteToAPI(route: Route): Boolean {
+    fun insertRouteToAPI(route: NodeConnection): Boolean {
         var added= false
         GlobalScope.launch(Dispatchers.IO) {
             if(routeService != null){
