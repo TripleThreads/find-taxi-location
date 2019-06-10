@@ -10,7 +10,7 @@ import com.tripleThreads.taxiyaz.data.user.User
 
 @Entity(tableName = "Ratings", foreignKeys = [
     ForeignKey(entity = User::class,
-        parentColumns = arrayOf("phone_number"),
+        parentColumns = arrayOf("id"),
         childColumns = arrayOf("userId"),
         onDelete = ForeignKey.CASCADE),
 
@@ -24,5 +24,5 @@ import com.tripleThreads.taxiyaz.data.user.User
 data class Rating(
     @NonNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name="id") val id:Long,
     @ColumnInfo(name="route_id") val routeId: Long,
-    @ColumnInfo(name="userId") val userId: String,
+    @ColumnInfo(name="userId") val userId: Long,
     @ColumnInfo(name="rate") val rate:Double)

@@ -4,6 +4,7 @@
     <data>
         <variable name="location" type="com.tripleThreads.taxiyaz.data.location.Location"/>
         <variable name="handler" type="com.tripleThreads.taxiyaz.fragments.add_route.BottomDialogEventListener"/>
+        <variable name="converter" type="com.tripleThreads.taxiyaz.utility.TxYzUtility"/>
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +49,7 @@
                 android:layout_marginRight="8dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 android:hint="Location, unique names"
-                android:text="@{location.name}"
+                android:text="@={location.name}"
                 android:id="@+id/location_name"/>
 
         <TextView
@@ -102,7 +103,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:editable="false"
-                android:text="@{Double.toString(location.latitude)}"
+                android:text="@={converter.fromDouble(location.latitude)}"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 android:id="@+id/latitude_edit"/>
 
@@ -124,7 +125,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:editable="false"
-                android:text="@{Double.toString(location.longitude)}"
+                android:text="@={converter.fromDouble(location.latitude)}"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 android:id="@+id/longitude_edit"/>
 

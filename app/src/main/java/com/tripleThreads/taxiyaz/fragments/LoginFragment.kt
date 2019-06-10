@@ -59,9 +59,10 @@ class LoginFragment : Fragment(), UserViewModelEventListeners {
             false
         )
         val view = binding.root
-        binding.user = User("", "")
+        binding.user = User(0, "user", "941634533")
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         binding.handlers = this
+        binding.lifecycleOwner = this
 
         if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED

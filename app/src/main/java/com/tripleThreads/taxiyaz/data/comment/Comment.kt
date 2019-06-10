@@ -24,5 +24,5 @@ data class Comment(
     @NotNull @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id:Int,
     @ColumnInfo(name="route_id") var routeId: Long,
     @ColumnInfo(name="userId") val userId: String,
-    @Bindable @ColumnInfo(name="comment") val comment: String,
+    @Bindable @ColumnInfo(name="comment") var comment: String,
     @ColumnInfo(name = "date") val date: Date): BaseObservable()

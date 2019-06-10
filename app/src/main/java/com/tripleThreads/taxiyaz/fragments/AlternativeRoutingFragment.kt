@@ -4,7 +4,6 @@ package com.tripleThreads.taxiyaz.fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,43 +46,22 @@ class AlternativeRoutingFragment : Fragment() {
             }
         })
 
-        adapter.getRoutes()
-      //  adapter.setRoutes(listOf(Route(1,"Test",2,3,2,1.1, 2.0F, ArrayList())))
-        recyclerView.adapter =  adapter
+        adapter.setRoutes(listOf(Route(1, "TEst", 2, 4, 1, 1.2, 2.5F, ArrayList())))
+
         recyclerView.layoutManager = LinearLayoutManager(activity1)
+        recyclerView.adapter =  adapter
         recyclerView.setHasFixedSize(true)
 
         val parent = parentFragment as RouteFragment
 
-        parent.publicViewModel?.allRoutes?.observe(this, Observer {
-                routes -> routes.let { adapter.setRoutes(routes) }})
-
-
-//        parent.searchEdit.setOnKeyListener { v, keyCode, event ->
-//            if(event?.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER){
-//                val changed = parentFragment as RouteFragment
-//                viewModel = changed.publicViewModel
+//        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
 //
-//                if(viewModel == null){
-//                    Log.d("parent", "is null")
-//                }
+//        Log.d("check", "In fragment")
+//        viewModel.getRoutes("MexicoTo6kilo")
 //
-//                Log.d("check", "In fragment")
-//
-//                viewModel?.allRoutes?.observe(this, Observer {
-//
-//                        routes -> routes.let {
-//                    adapter.setRoutes(routes)
-//                    Log.d("check", "observed")
-//                }
-//
-//                })
-//
-//
-//            }
-//            true
-//        }
-
+//        viewModel.allRoutes.observe(this, Observer {
+//            routes -> routes.let { adapter.setRoutes(routes) }
+//        })
 
 
         return view

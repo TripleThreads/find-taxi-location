@@ -15,6 +15,7 @@
         <action android:id="@+id/action_route_fragment_dest_to_commentsFragment"
                 app:destination="@+id/comments_fragment_dest"/>
     </fragment>
+
     <fragment android:id="@+id/settings_fragment_dest"
               android:name="com.tripleThreads.taxiyaz.fragments.SettingsFragment"
               android:label="fragment_settings"
@@ -28,6 +29,8 @@
               android:name="com.tripleThreads.taxiyaz.fragments.LoadingFragment"
               android:label="fragment_loading"
               tools:layout="@layout/fragment_loading"/>
-    <fragment android:id="@+id/comments_fragment_dest" android:name="com.tripleThreads.taxiyaz.fragments.CommentsFragment"
-              android:label="fragment_comments" tools:layout="@layout/fragment_comments"/>
+    <fragment android:id="@+id/comments_fragment_dest"
+              android:name="com.tripleThreads.taxiyaz.fragments.CommentsFragment"
+              android:label="fragment_comments"
+              tools:layout="@layout/fragment_comments"/>
 </navigation>
