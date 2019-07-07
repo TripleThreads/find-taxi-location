@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,14 +16,20 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tripleThreads.taxiyaz.R
+import com.tripleThreads.taxiyaz.data.user.User
+import com.tripleThreads.taxiyaz.databinding.FragmentNewNodeBinding
 import kotlinx.android.synthetic.main.fragment_new_node.view.*
 
 const val LATITUDE = "lat"
 const val LONGITUDE = "long"
-class CreateNewNode : Fragment() {
+class CreateNewNode : Fragment(), FabEventListeners {
+
+
     private lateinit var fab: FloatingActionButton
     private lateinit var googleMap: GoogleMap
     private lateinit var marker: Marker
+    private var latitude = 0.0
+    private var longitude = 0.0
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
@@ -30,11 +37,16 @@ class CreateNewNode : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        val view = inflater.inflate(R.layout.fragment_new_node, container, false)
+        val binding = DataBindingUtil.inflate<FragmentNewNodeBinding>(
+            inflater,
+            R.layout.fragment_new_node,
+            container,
+            false
+        )
+        binding.handler = this
+        val view = binding.root
         fab = view.floatingActionButton
-        var latitude = 0.0
-        var longitude = 0.0
+
 
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
             googleMap = mMap
@@ -72,23 +84,27 @@ class CreateNewNode : Fragment() {
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
 
-        fab.setOnClickListener {
-            val bottomDialogFragment = BottomDialogFragment()
-            val bundle = Bundle()
-
-            if (latitude != 0.0 || longitude != 0.0) {
-                bundle.putDouble(LATITUDE, latitude)
-                bundle.putDouble(LONGITUDE, longitude)
-                bottomDialogFragment.arguments = bundle
-            }
-
-            bottomDialogFragment.show(
-                fragmentManager!!,
-                "add_node_dialog"
-            )
-        }
-
         return view
     }
 
+    override fun onButtonClick() {
+        val bottomDialogFragment = BottomDialogFragment()
+        val bundle = Bundle()
+
+        if (latitude != 0.0 || longitude != 0.0) {
+            bundle.putDouble(LATITUDE, latitude)
+            bundle.putDouble(LONGITUDE, longitude)
+            bottomDialogFragment.arguments = bundle
+        }
+
+        bottomDialogFragment.show(
+            fragmentManager!!,
+            "add_node_dialog"
+        )
+    }
+
+}
+
+interface FabEventListeners {
+    fun onButtonClick()
 }

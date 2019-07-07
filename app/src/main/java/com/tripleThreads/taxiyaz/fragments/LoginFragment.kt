@@ -27,26 +27,6 @@ class LoginFragment : Fragment(), UserViewModelEventListeners {
 
     private val locationAccessKey = 1
 
-    override fun onButtonClick(user: User) {
-        Toast.makeText(context, user.name, Toast.LENGTH_LONG).show()
-        userViewModel.insert(user)
-        findNavController().navigate(R.id.route_fragment_dest)
-        activity!!.bottom_navigation.visibility = View.VISIBLE
-        showDialog()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == locationAccessKey) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
-            } else {
-                showDialog()
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +40,9 @@ class LoginFragment : Fragment(), UserViewModelEventListeners {
         )
         val view = binding.root
         binding.user = User(0, "user", "941634533")
+
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+
         binding.handlers = this
         binding.lifecycleOwner = this
 
@@ -135,6 +117,22 @@ class LoginFragment : Fragment(), UserViewModelEventListeners {
         }
     }
 
+    override fun onButtonClick(user: User) {
+        Toast.makeText(context, user.name, Toast.LENGTH_LONG).show()
+        userViewModel.insert(user)
+        findNavController().navigate(R.id.route_fragment_dest)
+        activity!!.bottom_navigation.visibility = View.VISIBLE
+        showDialog()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == locationAccessKey) {
+            if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                showDialog()
+            }
+        }
+    }
 
 }
 

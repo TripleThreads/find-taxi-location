@@ -12,49 +12,40 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.ViewPagerAdapter
 import com.tripleThreads.taxiyaz.data.route.Route
+import com.tripleThreads.taxiyaz.databinding.FragmentRouteBinding
 import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import kotlinx.android.synthetic.main.fragment_route.*
 import kotlinx.android.synthetic.main.fragment_route.view.*
 
 
-class RouteFragment : Fragment() {
-    lateinit var searchEdit: EditText
+class RouteFragment : Fragment(), OnKeyChangeListener {
 
-     var publicViewModel: RouteViewModel? = null
+    var publicViewModel: RouteViewModel? = null
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_route, container, false)
+        publicViewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
 
+        val binding = DataBindingUtil.inflate<FragmentRouteBinding>(
+            inflater,
+            R.layout.fragment_route,
+            container,
+            false
+        )
 
+        binding.handler = this
 
-
-        searchEdit = view.search_bar
-
-        searchEdit.setOnKeyListener { v, keyCode, event ->
-            if(event?.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER){
-                var viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
-                publicViewModel = viewModel
-                publicViewModel!!.allRoutes = viewModel.getRoutes(searchEdit.text.toString().trim())
-                Log.d("check", "observed")
-
-            }
-            true
-        }
-
-
-
-
-        return view
+        return binding.root
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,5 +59,17 @@ class RouteFragment : Fragment() {
         view.tabs.getTabAt(1)?.setIcon(R.drawable.ic_optional_black_24dp)
     }
 
+    override fun onKeyChange(charSequence: CharSequence, start: Int, before: Int, count: Int): Boolean {
+        if (count < 2)
+            return true
 
+        publicViewModel!!.allRoutes = publicViewModel!!.getRoutes(charSequence.toString())
+
+        return true
+    }
+
+}
+
+interface OnKeyChangeListener {
+    fun onKeyChange(charSequence: CharSequence, start: Int, before: Int, count: Int): Boolean
 }

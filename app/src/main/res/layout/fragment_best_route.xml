@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <fragment
             android:id="@+id/map"
@@ -10,18 +12,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            class="com.google.android.gms.maps.SupportMapFragment" tools:layout_editor_absoluteY="49dp"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            tools:layout_editor_absoluteY="49dp"
             app:layout_constraintHorizontal_bias="1.0"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:clickable="true"
-            android:id="@+id/start_route" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintHorizontal_bias="0.914" android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:focusable="true"
-            android:src="@android:drawable/ic_media_play" app:fabCustomSize="56dp"/>
+            android:id="@+id/start_route"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:focusable="true"
+            android:src="@android:drawable/ic_media_play"
+            app:fabCustomSize="56dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.tripleThreads.taxiyaz.R
+import com.tripleThreads.taxiyaz.databinding.FragmentTaxiToNodeBinding
 import kotlinx.android.synthetic.main.available_taxi_layout.view.*
 import kotlinx.android.synthetic.main.fragment_taxi_to_node.view.*
 import kotlinx.android.synthetic.main.fragment_taxi_to_node.view.available_taxi_ll
 
 
-class AddTaxiToNodeFragment : Fragment() {
+class AddTaxiToNodeFragment : Fragment(), RegisterTaxiEventListeners {
     private lateinit var availableTaxiLL: LinearLayout // list of available taxis holder
     private var dynamicAvailableTaxi = arrayListOf<View>()
     private lateinit var availableTx: View
@@ -23,24 +25,29 @@ class AddTaxiToNodeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val binding = DataBindingUtil.inflate<FragmentTaxiToNodeBinding>(
+            inflater,
+            R.layout.fragment_taxi_to_node,
+            container,
+            false
+        )
+        binding.nodeListViews = ArrayList<View>()
+        binding.handler = this
+        val view = binding.root
 
-        val view = inflater.inflate(R.layout.fragment_taxi_to_node, container, false)
+        // this part has dynamically generated view part on runtime so we couldn't bind with data binder
+
         availableTaxiLL = view.available_taxi_ll
-
         availableTx = LayoutInflater.from(context).inflate(R.layout.available_taxi_layout, null)
         availableTaxiLL.addView(availableTx)
         dynamicAvailableTaxi.add(availableTx)
 
         listenerBinder(availableTx)
 
-        view.continue_btn.setOnClickListener {
-            for (_view in dynamicAvailableTaxi) {
-                Toast.makeText(context, _view.location_name.text.toString(), Toast.LENGTH_LONG).show()
-            }
-        }
         return view
     }
 
+    // dynamically generated views couldn't bind with view model
     private fun listenerBinder(availableTaxi: View) {
 
         availableTaxi.location_price.setOnFocusChangeListener { _, b ->
@@ -56,10 +63,21 @@ class AddTaxiToNodeFragment : Fragment() {
                 availableTaxiLL.addView(availableTx)
                 dynamicAvailableTaxi.add(availableTx)
                 listenerBinder(availableTx)
-            } else {
-                Toast.makeText(context, "lost focus", Toast.LENGTH_LONG).show()
             }
         }
 
     }
+
+    override fun onSubmit() {
+        for (_view in dynamicAvailableTaxi) {
+            Toast.makeText(context, _view.location_name.text.toString(), Toast.LENGTH_LONG).show()
+
+            // this is where you can access those data
+        }
+    }
+}
+
+
+interface RegisterTaxiEventListeners {
+    fun onSubmit()
 }

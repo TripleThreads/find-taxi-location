@@ -32,10 +32,10 @@ class AlternativeRoutingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
+        val view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
         val activity1 = activity as Context
-        var recyclerView = view.alternate_route_recycler_view
-        var adapter = RouteListAdapter(activity1, object : OnItemClickListener {
+        val recyclerView = view.alternate_route_recycler_view
+        val adapter = RouteListAdapter(activity1, object : OnItemClickListener {
             override fun onItemClick(route: Route) {
                 Toast.makeText(context, "Clicked",Toast.LENGTH_SHORT).show()
                 val args = Bundle()
@@ -66,15 +66,6 @@ class AlternativeRoutingFragment : Fragment() {
 
         return view
     }
-
-
-
-
-
-
-
-
-
 }
 interface OnItemClickListener {
     fun onItemClick(route: Route)

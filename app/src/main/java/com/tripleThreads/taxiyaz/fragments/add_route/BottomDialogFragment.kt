@@ -50,7 +50,7 @@ class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListe
        // locationViewModel.insert(location)
         this.dismiss()
         //locationViewModel.insert(location)
-        var locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+        val locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         if(locationViewModel.insert(location)) {
             this.dismiss()
         } else{
