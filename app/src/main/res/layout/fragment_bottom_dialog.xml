@@ -130,7 +130,8 @@
                 android:id="@+id/longitude_edit"/>
 
 
-        <Button android:layout_width="100dp"
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:background="@drawable/button_round"
                 android:layout_gravity="center"

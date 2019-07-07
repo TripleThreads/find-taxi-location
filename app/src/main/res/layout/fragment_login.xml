@@ -40,7 +40,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Username"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -68,7 +68,7 @@
                 android:textSize="15sp"
                 android:text="Phone number"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/phone_number"
@@ -85,7 +85,7 @@
                 android:inputType="phone"/>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
                 android:text="Register"
                 android:enabled="true"
                 android:layout_width="180dp"

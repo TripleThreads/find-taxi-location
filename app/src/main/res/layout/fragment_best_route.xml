@@ -12,6 +12,7 @@
             android:layout_height="match_parent"
             class="com.google.android.gms.maps.SupportMapFragment" tools:layout_editor_absoluteY="49dp"
             app:layout_constraintHorizontal_bias="1.0"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="56dp"
             android:layout_height="56dp"
