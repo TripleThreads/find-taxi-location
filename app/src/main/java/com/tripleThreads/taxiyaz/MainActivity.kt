@@ -1,14 +1,16 @@
 package com.tripleThreads.taxiyaz
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tripleThreads.taxiyaz.databinding.ActivityMainBinding
 import com.tripleThreads.taxiyaz.viewModel.UserViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,11 +21,11 @@ class MainActivity : AppCompatActivity() {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
 
-        setContentView(R.layout.activity_main)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-
-        bottom_navigation.visibility = View.INVISIBLE
+        binding.handler = this
+        binding.visible = View.INVISIBLE
+        binding.homeId = R.id.action_home
 
         findNavController(R.id.nav_host).navigate(R.id.loading_fragment_dest)
 
@@ -31,14 +33,12 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host).navigate(R.id.login_fragment_dest)
         } else {
             findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest)
-            bottom_navigation.visibility = View.VISIBLE
-            bottom_navigation.selectedItemId = R.id.action_home
+            binding.visible = View.VISIBLE
+            findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest, null, options)
         }
-
-        bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    val options = navOptions {
+    private val options = navOptions {
         anim {
             enter = R.anim.abc_popup_enter
             exit = R.anim.abc_fade_out
@@ -46,8 +46,9 @@ class MainActivity : AppCompatActivity() {
             popExit = R.anim.abc_popup_exit
         }
     }
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
-        when (menuItem.itemId) {
+
+    fun onNavigationClick(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_recents -> {
                 findNavController(R.id.nav_host).navigate(R.id.loading_fragment_dest, null, options)
             }
@@ -63,8 +64,7 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.nav_host).navigate(R.id.add_route_dest, null, options)
             }
         }
-        true
+        return true
     }
-
 
 }
