@@ -29,5 +29,7 @@
     <string name="rate">Rate the route</string>
     <string name="comment_here">Comment here</string>
     <string name="comment">Comment on the route</string>
+    <string name="location_name">Location name</string>
+    <string name="price">Price</string>
 
 </resources>

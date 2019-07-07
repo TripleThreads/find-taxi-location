@@ -22,4 +22,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="bottom_sheet_style" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:colorPrimary">@color/colorAccent</item>
+    </style>
 </resources>

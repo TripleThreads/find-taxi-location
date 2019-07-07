@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+                name="handler"
+                type="com.tripleThreads.taxiyaz.fragments.add_route.AddTaxiToNodeFragment"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/available_taxi_ll"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginStart="10dp">
 
             <TextView
                     android:text="@string/available_taxi"
@@ -26,18 +32,20 @@
                     android:id="@+id/location_name"
                     android:layout_width="150dp"
                     android:layout_marginLeft="10dp"
-                    android:hint="Location name"
+                    android:hint="@string/location_name"
                     android:maxLines="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"/>
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/location_price"
                     android:layout_width="50dp"
                     android:inputType="numberDecimal"
-                    android:hint="Price"
+                    android:hint="@string/price"
                     android:layout_marginLeft="5dp"
                     android:maxLines="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"/>
         </LinearLayout>
 
     </LinearLayout>

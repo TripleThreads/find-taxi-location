@@ -3,8 +3,6 @@ package com.tripleThreads.taxiyaz.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -56,6 +54,52 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     private lateinit var mLastUpdateTime: String
     private lateinit var googleMap: GoogleMap
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+
+
+
+    @SuppressLint("MissingPermission")
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        val view = inflater.inflate(R.layout.fragment_best_route, container, false)
+        startRoute = view.start_route
+        startRoute.setOnClickListener {
+            calculatePathLeft()
+            startLocationUpdates()
+            drawPath()
+
+        }
+
+        // cant bind to google maps so directly accessed
+        (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
+            googleMap = mMap
+
+            googleMap.isMyLocationEnabled = true
+            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+
+            mFusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    mCurrentLocation = location
+
+                }
+
+                // For dropping a marker at a point on the Map
+                val latLng = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
+                googleMap.addMarker(MarkerOptions().position(latLng).title("Marker Title").snippet("Marker Description"))
+
+
+                // For zooming automatically to the location of the marker
+                val cameraPosition = CameraPosition.Builder().target(latLng).zoom(12f).build()
+                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+            }
+        }
+
+        return view
+    }
+
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             super.onLocationResult(locationResult)
@@ -68,8 +112,6 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     override fun onMapReady(mMap: GoogleMap?) {
         googleMap = mMap!!
         googleMap.uiSettings.isZoomControlsEnabled = true
-
-
     }
 
 
@@ -106,19 +148,17 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     override fun onLocationChanged(location: Location?) {
         mCurrentLocation = location!!
         origin = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
-        if (mCurrentLocation != null) {
-            //update the ui from here
-            mDistanceLocationChanged = SphericalUtil.computeDistanceBetween(origin, destination)
-            val date: Date = Calendar.getInstance().time
-            val sdf = SimpleDateFormat("hh:mm:ss a")
-            mLastUpdateTime = sdf.format(date)
-            (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
-                googleMap = mMap
-                val latlng = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
-                googleMap.addMarker(MarkerOptions().position(latlng).title("Updated at").snippet(mLastUpdateTime))
-            }
-
+        //update the ui from here
+        mDistanceLocationChanged = SphericalUtil.computeDistanceBetween(origin, destination)
+        val date: Date = Calendar.getInstance().time
+        val sdf = SimpleDateFormat("hh:mm:ss a")
+        mLastUpdateTime = sdf.format(date)
+        (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
+            googleMap = mMap
+            val latLang = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
+            googleMap.addMarker(MarkerOptions().position(latLang).title("Updated at").snippet(mLastUpdateTime))
         }
+
     }
 
     override fun onConnected(p0: Bundle?) {
@@ -131,54 +171,6 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
 
     override fun onConnectionFailed(p0: ConnectionResult) {
         Toast.makeText(this.requireContext(), "connection failed", Toast.LENGTH_SHORT).show()
-    }
-
-
-    @SuppressLint("MissingPermission")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-
-        val view = inflater.inflate(R.layout.fragment_best_route, container, false)
-        startRoute = view.start_route
-        startRoute.setOnClickListener {
-            calculatePathLeft()
-            startLocationUpdates()
-            drawPath()
-
-        }
-
-        (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
-            googleMap = mMap
-
-
-            // For showing a move to my location button
-            googleMap.isMyLocationEnabled = true
-            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
-
-            mFusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    mCurrentLocation = location
-
-                }
-
-
-                // For dropping a marker at a point on the Map
-                val ME = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
-                googleMap.addMarker(MarkerOptions().position(ME).title("Marker Title").snippet("Marker Description"))
-
-
-                // For zooming automatically to the location of the marker
-                val cameraPosition = CameraPosition.Builder().target(ME).zoom(12f).build()
-                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-
-            }
-        }
-
-        return view
     }
 
 

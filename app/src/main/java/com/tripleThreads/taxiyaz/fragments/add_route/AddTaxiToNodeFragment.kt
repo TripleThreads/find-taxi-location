@@ -4,28 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.databinding.FragmentTaxiToNodeBinding
 import kotlinx.android.synthetic.main.available_taxi_layout.view.*
-import kotlinx.android.synthetic.main.fragment_taxi_to_node.view.*
 import kotlinx.android.synthetic.main.fragment_taxi_to_node.view.available_taxi_ll
 
-
+/**
+ * this class stores dynamically generated views at run time.. so it is not ideal to use databinding
+ * */
 class AddTaxiToNodeFragment : Fragment(), RegisterTaxiEventListeners {
-    private lateinit var availableTaxiLL: LinearLayout // list of available taxis holder
     private var dynamicAvailableTaxi = arrayListOf<View>()
     private lateinit var availableTx: View
+    private lateinit var binding: FragmentTaxiToNodeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentTaxiToNodeBinding>(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_taxi_to_node,
             container,
@@ -37,9 +37,8 @@ class AddTaxiToNodeFragment : Fragment(), RegisterTaxiEventListeners {
 
         // this part has dynamically generated view part on runtime so we couldn't bind with data binder
 
-        availableTaxiLL = view.available_taxi_ll
         availableTx = LayoutInflater.from(context).inflate(R.layout.available_taxi_layout, null)
-        availableTaxiLL.addView(availableTx)
+        binding.root.available_taxi_ll.addView(availableTx)
         dynamicAvailableTaxi.add(availableTx)
 
         listenerBinder(availableTx)
@@ -60,7 +59,7 @@ class AddTaxiToNodeFragment : Fragment(), RegisterTaxiEventListeners {
                     }
                 }
                 val availableTx = LayoutInflater.from(context).inflate(R.layout.available_taxi_layout, null)
-                availableTaxiLL.addView(availableTx)
+                binding.root.available_taxi_ll.addView(availableTx)
                 dynamicAvailableTaxi.add(availableTx)
                 listenerBinder(availableTx)
             }

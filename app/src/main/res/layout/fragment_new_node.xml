@@ -4,6 +4,10 @@
         <variable
                 name="handler"
                 type="com.tripleThreads.taxiyaz.fragments.add_route.CreateNewNode"/>
+
+        <variable
+                name="googleMap"
+                type="com.google.android.gms.maps.GoogleMap"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"

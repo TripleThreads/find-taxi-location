@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,18 +15,13 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tripleThreads.taxiyaz.R
-import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.databinding.FragmentNewNodeBinding
-import kotlinx.android.synthetic.main.fragment_new_node.view.*
 
 const val LATITUDE = "lat"
 const val LONGITUDE = "long"
 class CreateNewNode : Fragment(), FabEventListeners {
 
-
-    private lateinit var fab: FloatingActionButton
     private lateinit var googleMap: GoogleMap
     private lateinit var marker: Marker
     private var latitude = 0.0
@@ -45,12 +41,10 @@ class CreateNewNode : Fragment(), FabEventListeners {
         )
         binding.handler = this
         val view = binding.root
-        fab = view.floatingActionButton
 
-
+        // google map databinding is currently not working
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
             googleMap = mMap
-
 
             googleMap.setOnMapClickListener { latLng ->
                 run {
@@ -95,12 +89,16 @@ class CreateNewNode : Fragment(), FabEventListeners {
             bundle.putDouble(LATITUDE, latitude)
             bundle.putDouble(LONGITUDE, longitude)
             bottomDialogFragment.arguments = bundle
+
+            bottomDialogFragment.show(
+                fragmentManager!!,
+                "add_node_dialog"
+            )
+        }
+        else {
+            Toast.makeText(context, "Please select(pin) location first", Toast.LENGTH_LONG).show()
         }
 
-        bottomDialogFragment.show(
-            fragmentManager!!,
-            "add_node_dialog"
-        )
     }
 
 }
