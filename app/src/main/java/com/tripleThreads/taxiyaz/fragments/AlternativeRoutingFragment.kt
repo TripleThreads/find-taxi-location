@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -18,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.RouteListAdapter
 import com.tripleThreads.taxiyaz.data.location.Location
-import com.tripleThreads.taxiyaz.data.route.Route
+import com.tripleThreads.taxiyaz.data.newRoute.Route
 import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import kotlinx.android.synthetic.main.fragment_alternative_routing.view.*
 import kotlinx.android.synthetic.main.fragment_route.*
@@ -28,14 +29,17 @@ import java.util.ArrayList
 class AlternativeRoutingFragment : Fragment() {
      var viewModel: RouteViewModel? = null
 
+    var routes: MutableLiveData<List<Route>> = MutableLiveData<List<Route>>().apply { value = emptyList() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
+        var view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
+
+
         val activity1 = activity as Context
-        val recyclerView = view.alternate_route_recycler_view
-        val adapter = RouteListAdapter(activity1, object : OnItemClickListener {
+        var recyclerView = view.alternate_route_recycler_view
+        var adapter = RouteListAdapter(activity1, object : OnItemClickListener {
             override fun onItemClick(route: Route) {
                 Toast.makeText(context, "Clicked",Toast.LENGTH_SHORT).show()
                 val args = Bundle()
@@ -46,13 +50,25 @@ class AlternativeRoutingFragment : Fragment() {
             }
         })
 
-        adapter.setRoutes(listOf(Route(1, "TEst", 2, 4, 1, 1.2, 2.5F, ArrayList())))
+        //adapter.setRoutes(listOf(APIRoute(1, "TEst", 2, 4, 1, 1.2, 2.5F, ArrayList())))
+
 
         recyclerView.layoutManager = LinearLayoutManager(activity1)
         recyclerView.adapter =  adapter
         recyclerView.setHasFixedSize(true)
 
-        val parent = parentFragment as RouteFragment
+        //get recent
+        if(arguments?.getString("key").equals("all")){
+
+            val viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
+            routes.value = viewModel.getRoutes("").value
+        }
+
+        routes.observe(this, Observer {
+            adapter.setRoutes(it!!)
+        })
+
+
 
 //        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
 //
@@ -66,6 +82,15 @@ class AlternativeRoutingFragment : Fragment() {
 
         return view
     }
+
+
+
+
+
+
+
+
+
 }
 interface OnItemClickListener {
     fun onItemClick(route: Route)

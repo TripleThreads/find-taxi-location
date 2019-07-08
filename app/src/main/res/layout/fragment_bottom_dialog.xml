@@ -2,7 +2,7 @@
 <layout>
 
     <data>
-        <variable name="location" type="com.tripleThreads.taxiyaz.data.location.Location"/>
+        <variable name="location" type="com.tripleThreads.taxiyaz.data.node.Node"/>
         <variable name="handler" type="com.tripleThreads.taxiyaz.fragments.add_route.BottomDialogEventListener"/>
         <variable name="converter" type="com.tripleThreads.taxiyaz.utility.TxYzUtility"/>
     </data>

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tripleThreads.taxiyaz.data.route.Route
+import com.tripleThreads.taxiyaz.data.newRoute.Route
 import com.tripleThreads.taxiyaz.databinding.RouteCardViewItemBinding
 import com.tripleThreads.taxiyaz.fragments.OnItemClickListener
 import com.tripleThreads.taxiyaz.viewModel.RouteViewModel

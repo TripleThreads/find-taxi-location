@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="route" type="com.tripleThreads.taxiyaz.data.route.Route"/>
+        <variable name="route" type="com.tripleThreads.taxiyaz.data.newRoute.Route"/>
     </data>
 
     <androidx.cardview.widget.CardView

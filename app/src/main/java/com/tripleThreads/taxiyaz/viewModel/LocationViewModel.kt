@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.tripleThreads.taxiyaz.Network.DataServiceGenerator
+import com.tripleThreads.taxiyaz.data.node.Node
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.location.Location
 import com.tripleThreads.taxiyaz.repository.LocationRepository
@@ -13,10 +14,10 @@ import kotlinx.coroutines.launch
 
 class LocationViewModel (application: Application): AndroidViewModel(application){
     private val repository: LocationRepository
-    var allLocations: LiveData<List<Location>>
+    var allLocations: LiveData<List<Node>>
 
     init {
-        val dao = TxYzDatabase.getDatabase(application).locationDao()
+        val dao = TxYzDatabase.getDatabase(application).nodeDao()
         val locationService = application.let { DataServiceGenerator().createLocationService(it) }
         repository = LocationRepository(dao, locationService)
         allLocations =repository.allLocations
@@ -26,10 +27,10 @@ class LocationViewModel (application: Application): AndroidViewModel(application
         allLocations = repository.getAll()
     }
 
-    fun insert(location: Location): Boolean {
+    fun insert(node:Node): Boolean {
         var added = false
         viewModelScope.launch(Dispatchers.IO) {
-             repository.insert(location)
+             repository.insert(node)
             added = true
         }
         return added
@@ -41,7 +42,7 @@ class LocationViewModel (application: Application): AndroidViewModel(application
         //TODO
     }
 
-    fun getLocationById(locationId: Long): Location? {
-        return repository.getLocationById(locationId).value
-    }
+//    fun getLocationById(locationId: Long): Location? {
+//        return repository.getLocationById(locationId).value
+//    }
 }

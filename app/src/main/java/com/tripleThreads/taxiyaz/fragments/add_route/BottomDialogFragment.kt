@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tripleThreads.taxiyaz.R
-import com.tripleThreads.taxiyaz.data.location.Location
+import com.tripleThreads.taxiyaz.data.node.Node
 import com.tripleThreads.taxiyaz.databinding.FragmentBottomDialogBinding
 import com.tripleThreads.taxiyaz.utility.TxYzUtility
 import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
@@ -37,8 +37,9 @@ class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListe
         val latitude = arguments?.getDouble(LATITUDE)
         val longitude = arguments?.getDouble(LONGITUDE)
 
-        val location = Location(1, "", latitude!!, longitude!!)
+        val location = Node(1, "", latitude!!, longitude!!)
 
+        //TODO SEGNI location wede node keyer
         binding.location = location
         binding.handler = this
         binding.converter = TxYzUtility()
@@ -46,19 +47,20 @@ class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListe
         return binding.root
     }
 
-    override fun onButtonClick(location: Location) {
+    override fun onButtonClick(node:Node) {
        // locationViewModel.insert(location)
         this.dismiss()
         //locationViewModel.insert(location)
-        val locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
-        if(locationViewModel.insert(location)) {
+        var locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+        if(locationViewModel.insert(node)) {
             this.dismiss()
+            Toast.makeText(context,"Thank you for your contribution", Toast.LENGTH_SHORT).show()
         } else{
-            Toast.makeText(context,"Network Required", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context,"Network Required", Toast.LENGTH_SHORT).show()
         }
     }
 }
 
 interface BottomDialogEventListener {
-    fun onButtonClick(location: Location)
+    fun onButtonClick(node: Node)
 }

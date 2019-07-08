@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.tripleThreads.taxiyaz.Network.DataServiceGenerator
 import com.tripleThreads.taxiyaz.data.APIHelpers.NodeConnection
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
-import com.tripleThreads.taxiyaz.data.route.Route
+import com.tripleThreads.taxiyaz.data.newRoute.Route
 import com.tripleThreads.taxiyaz.repository.RouteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,15 +34,15 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun insert(route: NodeConnection) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(route)
+        //repository.insert(route)
     }
 
     fun update(route: Route) = viewModelScope.launch (Dispatchers.IO){
-        repository.update(route)
+        //repository.update(route)
     }
 
     fun delete(route: Route) = viewModelScope.launch (Dispatchers.IO){
-        repository.delete(route)
+        //repository.delete(route)
     }
 
     fun getRouteByName(name:String) = viewModelScope.launch (Dispatchers.IO){
@@ -50,6 +50,6 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
-        repository.delete()
+        //repository.delete()
     }
 }

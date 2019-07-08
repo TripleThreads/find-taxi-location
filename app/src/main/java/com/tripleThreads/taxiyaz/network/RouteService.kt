@@ -14,7 +14,7 @@ interface RouteService {
     fun getAllRoutes(): Deferred<Response<List<RouteAPI>>>
 
     @GET("/api/route")
-    fun getRouteByTitleAsync(@Query("title") title: String): Deferred<Response<List<RouteAPI>>>
+    fun getRouteByTitleAsync(@Query("title") title: String): Deferred<Response<List<com.tripleThreads.taxiyaz.data.newRoute.APIRoute>>>
 
     @POST("/api/route")
     fun addRoute(@Body route: NodeConnection): Deferred<Response<Void>>

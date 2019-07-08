@@ -4,14 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.tripleThreads.taxiyaz.data.node.Node
+import com.tripleThreads.taxiyaz.data.node.NodeDao
 import com.tripleThreads.taxiyaz.data.comment.Comment
 import com.tripleThreads.taxiyaz.data.comment.CommentDao
 import com.tripleThreads.taxiyaz.data.location.Location
-import com.tripleThreads.taxiyaz.data.location.LocationDao
 import com.tripleThreads.taxiyaz.data.rating.Rating
 import com.tripleThreads.taxiyaz.data.rating.RatingDao
-import com.tripleThreads.taxiyaz.data.route.Route
-import com.tripleThreads.taxiyaz.data.route.RouteDao
+import com.tripleThreads.taxiyaz.data.newRoute.Route
+import com.tripleThreads.taxiyaz.data.newRoute.RouteDao
 import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.data.user.UserDao
 
@@ -19,7 +20,9 @@ import com.tripleThreads.taxiyaz.data.user.UserDao
     entities = [
         User::class,
         Route::class,
+        com.tripleThreads.taxiyaz.data.route.Route::class,
         Comment::class,
+        Node::class,
         Location::class,
         Rating::class],
     version = 5)
@@ -28,7 +31,7 @@ abstract class TxYzDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun routeDao(): RouteDao
     abstract fun commentDao(): CommentDao
-    abstract fun locationDao(): LocationDao
+    abstract fun nodeDao(): NodeDao
     abstract fun ratingDao(): RatingDao
 
 

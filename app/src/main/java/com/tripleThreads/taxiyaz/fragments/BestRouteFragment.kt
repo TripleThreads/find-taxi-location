@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
@@ -29,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.maps.android.PolyUtil
 import com.google.maps.android.SphericalUtil
 import com.tripleThreads.taxiyaz.R
+import com.tripleThreads.taxiyaz.data.newRoute.Route
 import kotlinx.android.synthetic.main.fragment_best_route.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -36,6 +38,7 @@ import java.io.StringReader
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 const val INTERVAL: Long = 1000 * 60 * 1
@@ -54,6 +57,9 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     private lateinit var mLastUpdateTime: String
     private lateinit var googleMap: GoogleMap
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+
+    var bestRoute: MutableLiveData<Route> = MutableLiveData<Route>().apply { Route(0,"",0,0.0,0.0f, ArrayList(),ArrayList()) }
+
 
 
 
@@ -240,4 +246,3 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
 
     }
 }
-
