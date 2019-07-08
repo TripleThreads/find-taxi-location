@@ -52,7 +52,11 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
         Log.d("check", "In repo1")
         getRouteFromAPI(name)
         allRoutes = dao.getAllRoutes()
-        return dao.getRouteByName(name)
+        return dao.getRouteByName("%$name%")
+    }
+
+    fun getAll(): LiveData<List<Route>> {
+        return dao.getAllRoutes()
     }
 
 

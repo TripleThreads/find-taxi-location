@@ -52,4 +52,8 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
         //repository.delete()
     }
+
+    fun getAll() = viewModelScope.launch(Dispatchers.IO) {
+        allRoutes = repository.getAll()
+    }
 }

@@ -50,7 +50,9 @@ class MainActivity : AppCompatActivity() {
     fun onNavigationClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_recents -> {
-                findNavController(R.id.nav_host).navigate(R.id.loading_fragment_dest, null, options)
+                var args = Bundle()
+                args.putInt("count",1)
+                findNavController(R.id.nav_host).navigate(R.id.alternativeRouting_fragment_destination, args, options)
             }
             R.id.action_settings -> {
                 findNavController(R.id.nav_host).navigate(R.id.settings_fragment_dest, null, options)

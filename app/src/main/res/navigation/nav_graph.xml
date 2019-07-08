@@ -33,4 +33,12 @@
               android:name="com.tripleThreads.taxiyaz.fragments.CommentsFragment"
               android:label="fragment_comments"
               tools:layout="@layout/fragment_comments"/>
+    <fragment android:id="@+id/alternativeRouting_fragment_destination"
+              android:name="com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment"
+              android:label="fragment_alternative_routing" tools:layout="@layout/fragment_alternative_routing">
+        <!--<argument-->
+                <!--android:name="count"-->
+                <!--app:argType="integer"-->
+                <!--android:defaultValue="0"/>-->
+    </fragment>
 </navigation>

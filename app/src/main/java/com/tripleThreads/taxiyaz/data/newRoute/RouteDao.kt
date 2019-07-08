@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface RouteDao {
-    @Query("SELECT * FROM ROUTE ORDER BY number_of_hops")
+    @Query("SELECT * FROM ROUTE")
     fun getAllRoutes(): LiveData<List<Route>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -17,7 +17,7 @@ interface RouteDao {
     @Delete
     fun deleteRoute(route: Route)
 
-    @Query("SELECT * FROM ROUTE WHERE TITLE = :title ORDER BY price")
+    @Query("SELECT * FROM ROUTE WHERE TITLE Like :title ORDER BY price")
     fun getRouteByName(title:String):LiveData<List<Route>>
 
     @Query("DELETE FROM ROUTE")

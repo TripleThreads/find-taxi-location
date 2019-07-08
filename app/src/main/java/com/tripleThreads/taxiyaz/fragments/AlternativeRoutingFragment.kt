@@ -37,6 +37,7 @@ class AlternativeRoutingFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_alternative_routing, container, false)
 
 
+
         val activity1 = activity as Context
         var recyclerView = view.alternate_route_recycler_view
         var adapter = RouteListAdapter(activity1, object : OnItemClickListener {
@@ -44,43 +45,41 @@ class AlternativeRoutingFragment : Fragment() {
                 Toast.makeText(context, "Clicked",Toast.LENGTH_SHORT).show()
                 val args = Bundle()
                 args.putSerializable("route",route)
-                //Navigation.createNavigateOnClickListener(R.id.action_route_fragment_dest_to_commentsFragment,args)
                 findNavController().navigate(R.id.comments_fragment_dest,args)
 
             }
         })
 
-        //adapter.setRoutes(listOf(APIRoute(1, "TEst", 2, 4, 1, 1.2, 2.5F, ArrayList())))
+
 
 
         recyclerView.layoutManager = LinearLayoutManager(activity1)
         recyclerView.adapter =  adapter
         recyclerView.setHasFixedSize(true)
 
-        //get recent
-        if(arguments?.getString("key").equals("all")){
 
-            val viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
-            routes.value = viewModel.getRoutes("").value
-        }
+
+
 
         routes.observe(this, Observer {
             adapter.setRoutes(it!!)
         })
 
+        if( arguments?.getInt("count") == 1){
+            Toast.makeText(context,"all here",Toast.LENGTH_SHORT).show()
+            viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
+            viewModel?.getAll()
+            viewModel?.allRoutes?.observe(this, Observer {
+                adapter.setRoutes(it!!)
+            })
 
-
-//        viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
-//
-//        Log.d("check", "In fragment")
-//        viewModel.getRoutes("MexicoTo6kilo")
-//
-//        viewModel.allRoutes.observe(this, Observer {
-//            routes -> routes.let { adapter.setRoutes(routes) }
-//        })
-
-
+        }
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        this.routes.apply { emptyList<Route>() }
     }
 
 
