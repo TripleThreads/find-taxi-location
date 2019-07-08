@@ -1,7 +1,9 @@
 package com.tripleThreads.taxiyaz.repository
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import com.tripleThreads.taxiyaz.data.node.APINode
 import com.tripleThreads.taxiyaz.data.node.Node
 import com.tripleThreads.taxiyaz.data.node.NodeDao
 import com.tripleThreads.taxiyaz.network.NodeService
@@ -23,11 +25,14 @@ class LocationRepository(private val dao: NodeDao, private val nodeService: Node
     fun getLocationFromAPI(){
         GlobalScope.launch(Dispatchers.IO){
             if (nodeService != null){
-                val response: Response<List<Node>> = nodeService.getAllLocations()!!.await()
+                val response: Response<List<APINode>> = nodeService.getAllLocations()!!.await()
                 val nodes = response.body()
                 if(nodes != null){
                     withContext(Dispatchers.IO){
-                        nodes.forEach { node -> cache(node) }
+                        nodes.forEach {
+                                node -> cache(node.convertToNode())
+                            Log.d("Adding",node.name)
+                        }
                     }
                 }
             }
@@ -36,7 +41,7 @@ class LocationRepository(private val dao: NodeDao, private val nodeService: Node
 
     @WorkerThread
     fun getAll(): LiveData<List<Node>>{
-        getLocationFromAPI()
+        //getLocationFromAPI()
         allLocations = dao.getAllLocations()
         return allLocations
 

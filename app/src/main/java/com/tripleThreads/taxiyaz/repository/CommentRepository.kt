@@ -1,5 +1,6 @@
 package com.tripleThreads.taxiyaz.repository
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.tripleThreads.taxiyaz.data.APIHelpers.CommentAPI
@@ -27,13 +28,10 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
 
     @WorkerThread
     fun insert(comment: Comment): Boolean{
-        if(insertCommentToAPI(comment)) {
-            dao.insertComment(comment)
-            return true
-        }
-        else{
-            return false
-        }
+        insertCommentToAPI(comment)
+        dao.insertComment(comment)
+        return true
+
     }
     @WorkerThread
     fun cache(comment: Comment){
@@ -75,7 +73,8 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
                 val comments = response.body()
                 if(comments !=null){
                     withContext(Dispatchers.IO){
-                        comments.forEach { comment ->  cache(comment.convertToComment())}
+                        comments.forEach { comment ->  cache(comment.convertToComment())
+                        Log.d("Comment", comment.comment)}
                     }
                 }
 

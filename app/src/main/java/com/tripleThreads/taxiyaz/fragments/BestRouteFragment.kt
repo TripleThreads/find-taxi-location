@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,7 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     private lateinit var googleMap: GoogleMap
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
-    var bestRoute: MutableLiveData<Route> = MutableLiveData<Route>().apply { Route(0,"",0,0.0,0.0f, ArrayList(),ArrayList()) }
+    var bestRoute: MutableLiveData<Route> = MutableLiveData<Route>().apply { Route(-1,"",0,0.0,0.0f, ArrayList(),ArrayList()) }
 
 
 
@@ -235,14 +236,24 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
         //display the comment and rate fragment every 25% of the path traveled
         //if the distance is equal to 25% of the distancelocationchanged
 
-        val dialog = CommentAndRatingFragment()
-        val bundle = Bundle()
-        bundle.putString(ROUTE_KEY_COMMENT, "")
-        dialog.arguments = bundle
-        dialog.show(
-            fragmentManager!!,
-            "add_comment_dialog"
-        )
+
+        Log.d("bestroute", bestRoute.value!!.title)
+        if(bestRoute.value?.routeId != -1L)
+        {
+            val dialog = CommentAndRatingFragment()
+            val bundle = Bundle()
+            bundle.putString(ROUTE_KEY_COMMENT, "")
+            bundle.putSerializable("route",bestRoute.value)
+            dialog.arguments = bundle
+            dialog.show(
+                fragmentManager!!,
+                "add_comment_dialog"
+            )
+        }
+        else{
+            Toast.makeText(context,"No route in site",Toast.LENGTH_SHORT).show()
+        }
+
 
     }
 }

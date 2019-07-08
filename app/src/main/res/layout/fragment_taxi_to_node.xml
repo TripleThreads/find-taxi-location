@@ -37,7 +37,7 @@
                 android:layout_marginTop="40dp"
                 android:textSize="15sp"/>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
                 android:id="@+id/taxi_location"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

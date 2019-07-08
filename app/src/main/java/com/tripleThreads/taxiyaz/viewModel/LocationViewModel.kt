@@ -16,6 +16,7 @@ class LocationViewModel (application: Application): AndroidViewModel(application
     private val repository: LocationRepository
     var allLocations: LiveData<List<Node>>
 
+
     init {
         val dao = TxYzDatabase.getDatabase(application).nodeDao()
         val locationService = application.let { DataServiceGenerator().createLocationService(it) }
@@ -23,10 +24,14 @@ class LocationViewModel (application: Application): AndroidViewModel(application
         allLocations =repository.allLocations
     }
 
-    fun getLocations(){
-        allLocations = repository.getAll()
+    fun getLocationsRemote(){
+       repository.getLocationFromAPI()
     }
 
+    fun getLocations(){
+        allLocations = repository.getAll()
+
+    }
     fun insert(node:Node): Boolean {
         var added = false
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,7 +47,10 @@ class LocationViewModel (application: Application): AndroidViewModel(application
         //TODO
     }
 
-//    fun getLocationById(locationId: Long): Location? {
-//        return repository.getLocationById(locationId).value
-//    }
+    fun addAvailableNode(nodeTitle: String, destNodeTitle: String, price: Double) {
+
+
+    }
+
+
 }

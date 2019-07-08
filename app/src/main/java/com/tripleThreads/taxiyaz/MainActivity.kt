@@ -1,15 +1,20 @@
 package com.tripleThreads.taxiyaz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import com.tripleThreads.taxiyaz.databinding.ActivityMainBinding
+import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
 import com.tripleThreads.taxiyaz.viewModel.UserViewModel
+import kotlinx.coroutines.GlobalScope
+import org.jetbrains.anko.doAsync
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +40,11 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest)
             binding.visible = View.VISIBLE
             findNavController(R.id.nav_host).navigate(R.id.route_fragment_dest, null, options)
+            GlobalScope.doAsync {
+                var nodeViewModel = ViewModelProviders.of(this@MainActivity).get(LocationViewModel::class.java)
+                nodeViewModel.getLocationsRemote()
+
+            }
         }
     }
 

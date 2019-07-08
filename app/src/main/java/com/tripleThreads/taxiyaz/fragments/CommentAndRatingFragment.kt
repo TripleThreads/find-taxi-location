@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.comment.Comment
+import com.tripleThreads.taxiyaz.data.newRoute.Route
 import com.tripleThreads.taxiyaz.databinding.FragmentCommentAndRatingBinding
 import com.tripleThreads.taxiyaz.viewModel.CommentViewModel
 import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
@@ -21,6 +22,7 @@ class CommentAndRatingFragment : DialogFragment(), AddCommentEventListener {
     private lateinit var userViewModel: UserViewModel
     private lateinit var routeViewModel: RouteViewModel
     private lateinit var commentViewModel: CommentViewModel
+    private lateinit var route: Route
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +42,11 @@ class CommentAndRatingFragment : DialogFragment(), AddCommentEventListener {
 
         routeViewModel.getRouteByName(routeTitle!!)
 
-        val comment = Comment(1, 0, userViewModel.user!!.phoneNumber, "new comment", Date())
 
-//        routeViewModel.searchedRoute.observe(this, androidx.lifecycle.Observer {
-//            run {
-//                comment.routeId = it[0].routeId
-//            }
-//        })
+        route = arguments?.getSerializable("route") as Route
+
+        val comment = Comment(1, route.routeId, userViewModel.user!!.phoneNumber, route.title, null)
+
         binding.comment = comment
         binding.listener = this
 
@@ -54,8 +54,13 @@ class CommentAndRatingFragment : DialogFragment(), AddCommentEventListener {
     }
 
     override fun onButtonClick(comment: Comment) {
-        Toast.makeText(context, comment.comment, Toast.LENGTH_LONG).show()
-        this.dismiss()
+        if(comment.comment.trim() != ""){
+            Toast.makeText(context, comment.comment, Toast.LENGTH_LONG).show()
+            commentViewModel.insert(comment)
+            Toast.makeText(context,"Thank you for your contribution",Toast.LENGTH_SHORT).show()
+            this.dismiss()
+        }
+
     }
 
 

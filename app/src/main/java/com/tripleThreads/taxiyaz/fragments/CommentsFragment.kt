@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.comment.Comment
-import com.tripleThreads.taxiyaz.data.route.Route
+import com.tripleThreads.taxiyaz.data.newRoute.Route
 import com.tripleThreads.taxiyaz.viewModel.CommentViewModel
 import kotlinx.android.synthetic.main.comment_item.view.*
 import kotlinx.android.synthetic.main.fragment_comments.view.*
@@ -59,6 +59,7 @@ class CommentsFragment : Fragment() {
 
         val routeMap = BestRouteFragment()
 
+
         childFragmentManager.beginTransaction()
             .replace(R.id.route_fragment_viewpager, routeMap)
             .commit()
@@ -82,7 +83,7 @@ class CommentsFragment : Fragment() {
             val comment = comments[position]
             holder.commentContent.text = comment.comment
             val index = Random(nickNames.size).nextInt()
-            holder.userName.text = nickNames[index]
+            holder.userName.text = nickNames[0]
         }
         fun setComment(comments: List<Comment>){
             this.comments = comments

@@ -53,9 +53,11 @@ class BottomDialogFragment : BottomSheetDialogFragment(), BottomDialogEventListe
         //locationViewModel.insert(location)
         var locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         if(locationViewModel.insert(node)) {
-            this.dismiss()
             Toast.makeText(context,"Thank you for your contribution", Toast.LENGTH_SHORT).show()
+            this.dismiss()
+
         } else{
+            Toast.makeText(context,"Thank you for your contribution", Toast.LENGTH_SHORT).show()
             //Toast.makeText(context,"Network Required", Toast.LENGTH_SHORT).show()
         }
     }

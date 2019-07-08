@@ -1,13 +1,14 @@
 package com.tripleThreads.taxiyaz.network
 
+import com.tripleThreads.taxiyaz.data.node.APINode
 import com.tripleThreads.taxiyaz.data.node.Node
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.*
 
 interface NodeService {
-    @GET("/api/node")
-    fun getAllLocations(): Deferred<Response<List<Node>>>
+    @GET("/api/node/all")
+    fun getAllLocations(): Deferred<Response<List<APINode>>>
 
     @POST("/api/node")
     fun addLocation(@Body node: Node): Deferred<Response<Void>>
