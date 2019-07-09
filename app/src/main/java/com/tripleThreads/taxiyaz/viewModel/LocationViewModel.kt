@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 class LocationViewModel (application: Application): AndroidViewModel(application){
     private val repository: LocationRepository
     var allLocations: LiveData<List<Node>>
+    var allNodes: List<Node> = ArrayList()
 
 
     init {
@@ -29,9 +30,9 @@ class LocationViewModel (application: Application): AndroidViewModel(application
        repository.getLocationFromAPI()
     }
 
-    fun getLocations(){
+    fun getLocations() = viewModelScope.launch(Dispatchers.IO){
         allLocations = repository.getAll()
-
+        allNodes = repository.getAllNodes()
     }
     fun insert(node:Node): Boolean {
         var added = false

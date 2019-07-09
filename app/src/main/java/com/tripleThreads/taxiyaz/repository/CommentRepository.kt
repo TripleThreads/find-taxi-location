@@ -50,7 +50,15 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
         getCommentsFromAPI(comment.routeId)
 
     }
-    
+
+
+
+    @WorkerThread
+    fun getCommentsByRouteId(routeId: Long): List<Comment>{
+        getCommentsFromAPI(routeId)
+        return dao.getAllCommentByRoute(routeId)
+
+    }
     //network functions
 
     private fun getCommentsFromAPI(routeId: Long){

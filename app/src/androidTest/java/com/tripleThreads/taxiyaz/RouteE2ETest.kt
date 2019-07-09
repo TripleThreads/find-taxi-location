@@ -1,9 +1,11 @@
 package com.tripleThreads.taxiyaz
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -11,6 +13,7 @@ import androidx.test.espresso.PerformException
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
@@ -20,12 +23,16 @@ import com.google.android.material.tabs.TabLayout
 import com.tripleThreads.taxiyaz.fragments.add_route.BottomDialogFragment
 import com.tripleThreads.taxiyaz.fragments.add_route.LATITUDE
 import com.tripleThreads.taxiyaz.fragments.add_route.LONGITUDE
+import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.junit.rules.TestRule
+
+
 
 @get:Rule
 var permission = GrantPermissionRule.grant(
@@ -73,6 +80,7 @@ class RouteE2ETest {
         onView(withId(R.id.alternate_route_recycler_view)).
             perform(RecyclerViewActions.actionOnItemAtPosition<RouteViewHolder>(0, click()))
 
+        onView(withText("Bookmark")).check(matches(isDisplayed()));
     }
 
     @Test
@@ -86,13 +94,24 @@ class RouteE2ETest {
         onView(withId(R.id.floatingActionButton)).perform(click())
 
         onView(withId(R.id.location_name)).perform(click())
-        onView(withId(R.id.location_name)).perform(typeTextIntoFocusedView("Megenagna"))
+        onView(withId(R.id.location_name)).perform(typeTextIntoFocusedView("Bole"))
         onView(withId(R.id.location_name)).perform(closeSoftKeyboard())
 
         onView(withId(R.id.radio_pinned)).perform(click())
         onView(withId(R.id.radio_current)).perform(click())
 
         onView(withId(R.id.submit_node)).perform(click())
+
+        val locationViewModel = ViewModelProviders.of(activity.activity).get(LocationViewModel::class.java)
+
+        var exists = false
+
+        for (location in locationViewModel.allNodes) {
+            if (location.name ==  "Bole")
+                exists = true
+        }
+
+        assert(exists)
 
     }
 

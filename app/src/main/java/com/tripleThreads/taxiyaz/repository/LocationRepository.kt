@@ -46,6 +46,11 @@ class LocationRepository(private val dao: NodeDao, private val nodeService: Node
 
     }
 
+    @WorkerThread
+    fun getAllNodes(): List<Node>{
+        return dao.getAllNodes()
+    }
+
 
     @WorkerThread
     fun insert(node: Node):Boolean{

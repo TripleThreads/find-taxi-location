@@ -7,10 +7,7 @@ import com.tripleThreads.taxiyaz.data.newRoute.Route
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
 class RouteRepositoryTest {
 
 
@@ -20,7 +17,7 @@ class RouteRepositoryTest {
     @Test
     fun getAllRoutes() {
 
-         val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
+         val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList(),false)
          val dao = TxYzDatabase.getDatabase(context).routeDao()
          dao.insertRoute(route)
          assertNotEquals(dao.getAllRoutes(),null )
@@ -34,7 +31,7 @@ class RouteRepositoryTest {
 
     @Test
     fun insert() {
-        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
+        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList(), false)
         val dao = TxYzDatabase.getDatabase(context).routeDao()
         dao.insertRoute(route)
         assertNotEquals(dao.getRouteByName("Testing Title"),null )
@@ -45,7 +42,7 @@ class RouteRepositoryTest {
 
     @Test
     fun update() {
-        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
+        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList(), false)
         val dao = TxYzDatabase.getDatabase(context).routeDao()
         dao.insertRoute(route)
         assertNotEquals(dao.getRouteByName("Testing Title"),null )
@@ -55,7 +52,7 @@ class RouteRepositoryTest {
 
     @Test
     fun delete() {
-        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
+        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList(), false)
         val dao = TxYzDatabase.getDatabase(context).routeDao()
         dao.insertRoute(route)
 

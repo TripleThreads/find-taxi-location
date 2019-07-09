@@ -8,6 +8,9 @@ interface NodeDao {
     @Query("SELECT * FROM Node")
     fun getAllLocations(): LiveData<List<Node>>
 
+    @Query("SELECT * FROM Node")
+    fun getAllNodes(): List<Node>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLocation(node: Node)
 

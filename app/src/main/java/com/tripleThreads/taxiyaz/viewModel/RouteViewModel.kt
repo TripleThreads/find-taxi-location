@@ -18,6 +18,7 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: RouteRepository
     var allRoutes: LiveData<List<Route>>
     lateinit var searchedRoute: LiveData<List<Route>>
+    lateinit var route: Route
 
     init {
         val dao = TxYzDatabase.getDatabase(application).routeDao()
@@ -63,5 +64,9 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     }
     fun getBookMarked() = viewModelScope.launch(Dispatchers.IO){
         allRoutes = repository.getBookMarked()
+    }
+
+    fun getRoute(id: Long) = viewModelScope.launch (Dispatchers.IO){
+        route = repository.getRouteById(id)
     }
 }

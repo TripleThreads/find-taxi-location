@@ -19,4 +19,7 @@ interface CommentDao {
     @Delete
     fun deleteComment(comment: Comment)
 
+    @Query("SELECT * FROM Comments where route_id=:routeId ORDER BY date")
+    fun getAllCommentByRoute(routeId: Long): List<Comment>
+
 }
