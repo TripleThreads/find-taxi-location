@@ -88,6 +88,11 @@ class MainActivity : AppCompatActivity() {
             R.id.action_add -> {
                 findNavController(R.id.nav_host).navigate(R.id.add_route_dest, null, options)
             }
+            R.id.action_favorites ->{
+                var args = Bundle()
+                args.putInt("count",2)
+                findNavController(R.id.nav_host).navigate(R.id.alternativeRouting_fragment_destination, args, options)
+            }
         }
         return true
     }

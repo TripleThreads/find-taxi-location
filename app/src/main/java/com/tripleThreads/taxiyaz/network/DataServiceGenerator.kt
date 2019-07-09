@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DataServiceGenerator {
 
-    private val baseUrl = "http://10.5.215.131:8080/"
+    private val baseUrl = "http://10.42.0.1:8080/"
 
     fun createRouteService(context: Context): RouteService? {
         val connected = checkInternet(context)

@@ -28,14 +28,21 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
 
             Log.d("check", "In repo2")
             if (routeService != null) {
-                val response: Response<List<APIRoute>> = routeService.getRouteByTitleAsync(title)!!.await()
+                val response: Response<List<APIRoute>> = routeService.getRouteByTitleAsync(title).await()
                 val routes = response.body()
                 Log.d("check", "In repo3")
 
                 if (routes != null) {
                     withContext(Dispatchers.IO) {
                         //dao.deleteAll()
-                        routes.forEach { route -> cache(route.convertToRoute())}
+                        routes.forEach { route ->
+                            val b = dao.getRouteById(route.routeId)
+                            var bk = false
+                            if (b != null) {
+                                bk = b.bookmarked
+                            }
+                            cache(route.convertToRoute(bk))
+                        }
                     }
                 }
             }
@@ -73,6 +80,14 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
 
             }
         }
+    }
+
+    fun getRouteById(id: Long): Route {
+        return dao.getRouteById(id)
+    }
+
+    fun getBookMarked(): LiveData<List<Route>> {
+        return  dao.getBookMarked()
     }
 
 

@@ -59,7 +59,7 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     private lateinit var googleMap: GoogleMap
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
 
-    var bestRoute: MutableLiveData<Route> = MutableLiveData<Route>().apply { Route(-1,"",0,0.0,0.0f, ArrayList(),ArrayList()) }
+    var bestRoute: MutableLiveData<Route> = MutableLiveData<Route>().apply { Route(-1,"",0,0.0,0.0f, ArrayList(),ArrayList(), false) }
 
 
 

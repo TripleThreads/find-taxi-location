@@ -12,8 +12,8 @@ data class APIRoute (
        val rating: Float,
        val routingNodes: APIRoutingNodes
 ) {
-    fun convertToRoute(): Route {
-        var route= Route(this.routeId, this.title, this.hops, this.price, this.rating, ArrayList(), ArrayList())
+    fun convertToRoute(bookmarkerd: Boolean): Route {
+        var route= Route(this.routeId, this.title, this.hops, this.price, this.rating, ArrayList(), ArrayList(), bookmarkerd)
         var routing = this.routingNodes
         while(routing.nextNode != null){
             route.latitudes.add(routing.node.latitude)

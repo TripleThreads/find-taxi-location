@@ -26,4 +26,7 @@ interface RouteDao {
     @Query("SELECT * FROM ROUTE WHERE route_id =:id")
     fun getRouteById(id: Long): Route
 
+    @Query("SELECT * FROM ROUTE WHERE bookmark=1")
+    fun getBookMarked(): LiveData<List<Route>>
+
 }

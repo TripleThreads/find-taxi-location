@@ -18,6 +18,7 @@ import com.tripleThreads.taxiyaz.data.comment.Comment
 import com.tripleThreads.taxiyaz.data.newRoute.Route
 import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.viewModel.CommentViewModel
+import com.tripleThreads.taxiyaz.viewModel.RouteViewModel
 import com.tripleThreads.taxiyaz.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.comment_item.view.*
 import kotlinx.android.synthetic.main.fragment_comments.view.*
@@ -35,19 +36,18 @@ class CommentsFragment : Fragment() {
 
 
     lateinit var viewModel: CommentViewModel
+    lateinit var routeViewModel: RouteViewModel
 
 
 
-        override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =inflater.inflate(R.layout.fragment_comments, container, false)
+        val view = inflater.inflate(R.layout.fragment_comments, container, false)
 
 
-
-
-            val route = arguments?.getSerializable("route") as Route
+        val route = arguments?.getSerializable("route") as Route
 
 
         val activityContext = activity as Context
@@ -58,17 +58,22 @@ class CommentsFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
         viewModel = ViewModelProviders.of(this).get(CommentViewModel::class.java)
+        routeViewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
 
         viewModel.getComments(route.routeId)
-        viewModel.comments.observe(this, Observer {
-            comments -> comments.let { adapter.setComment(comments) }
+        viewModel.comments.observe(this, Observer { comments ->
+            comments.let { adapter.setComment(comments) }
 
         })
+
+        view.bookmark.setOnClickListener {
+            routeViewModel.addToBookMark(route.routeId)
+        }
 
         val routeMap = BestRouteFragment()
 
         var args = Bundle()
-        args.putSerializable("route",route)
+        args.putSerializable("route", route)
         routeMap.arguments = args
 
         childFragmentManager.beginTransaction()
@@ -77,26 +82,25 @@ class CommentsFragment : Fragment() {
         return view
     }
 
-    inner class CommentListAdapter(context: Context) : RecyclerView.Adapter<CommentListAdapter.CommentViewHolder>(){
+    inner class CommentListAdapter(context: Context) : RecyclerView.Adapter<CommentListAdapter.CommentViewHolder>() {
         var comments: List<Comment> = emptyList()
 
         private val inflater = LayoutInflater.from(context)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-            val recyclerViewItem = inflater.inflate(R.layout.comment_item,parent,false)
+            val recyclerViewItem = inflater.inflate(R.layout.comment_item, parent, false)
 
-            var sharedPreference = context?.getSharedPreferences("user",Context.MODE_PRIVATE)
+            var sharedPreference = context?.getSharedPreferences("user", Context.MODE_PRIVATE)
             var userPhone: String = sharedPreference!!.getString("user", "")!!
 
-            recyclerViewItem.setOnClickListener{
-                if (comments[viewType].userId.equals(userPhone))
-                {
+            recyclerViewItem.setOnClickListener {
+                if (comments[viewType].userId.equals(userPhone)) {
                     //Toast.makeText(context,"${comments[viewType]}",Toast.LENGTH_SHORT).show()
 
                     val dialog = CommentAndRatingFragment()
                     val bundle = Bundle()
                     bundle.putString(ROUTE_KEY_COMMENT, "")
-                    bundle.putSerializable("comment",comments[viewType])
+                    bundle.putSerializable("comment", comments[viewType])
                     dialog.arguments = bundle
                     dialog.show(
                         fragmentManager!!,
@@ -113,17 +117,18 @@ class CommentsFragment : Fragment() {
         override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
             val comment = comments[position]
             holder.commentContent.text = comment.comment
-            val index = Random(nickNames.size-1).nextInt()
+            val index = Random(nickNames.size - 1).nextInt()
             holder.userName.text = comment.userId
         }
-        fun setComment(comments: List<Comment>){
+
+        fun setComment(comments: List<Comment>) {
             this.comments = comments
             notifyDataSetChanged()
 
         }
 
 
-        inner class CommentViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
+        inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val userName = itemView.commenterUserName
             val commentContent = itemView.comment
 

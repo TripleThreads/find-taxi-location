@@ -55,4 +55,13 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
     fun rateRoute(id:Long, rating: Float) = viewModelScope.launch(Dispatchers.IO) {
         repository.rateRoute(id,rating)
     }
+
+    fun addToBookMark(id: Long) = viewModelScope.launch(Dispatchers.IO){
+        val route = repository.getRouteById(id)
+        route.bookmarked = !route.bookmarked
+        //repository.updateLocal(route)
+    }
+    fun getBookMarked() = viewModelScope.launch(Dispatchers.IO){
+        allRoutes = repository.getBookMarked()
+    }
 }

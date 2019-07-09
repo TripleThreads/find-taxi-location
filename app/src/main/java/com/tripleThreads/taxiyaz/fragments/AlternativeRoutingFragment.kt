@@ -65,9 +65,18 @@ class AlternativeRoutingFragment : Fragment() {
         })
 
         if( arguments?.getInt("count") == 1){
-            Toast.makeText(context,"all here",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context,"all here",Toast.LENGTH_SHORT).show()
             viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
             viewModel?.getAll()
+            viewModel?.allRoutes?.observe(this, Observer {
+                adapter.setRoutes(it!!)
+            })
+
+        }
+        else if( arguments?.getInt("count") == 2){
+            //Toast.makeText(context,"all here",Toast.LENGTH_SHORT).show()
+            viewModel = ViewModelProviders.of(this).get(RouteViewModel::class.java)
+            viewModel?.getBookMarked()
             viewModel?.allRoutes?.observe(this, Observer {
                 adapter.setRoutes(it!!)
             })
