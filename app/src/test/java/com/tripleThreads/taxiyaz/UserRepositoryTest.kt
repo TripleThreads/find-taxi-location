@@ -2,21 +2,26 @@ package com.tripleThreads.taxiyaz
 
 
 import android.content.Context
-import androidx.navigation.NavController
-import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.user.User
-import com.tripleThreads.taxiyaz.data.user.UserDao
-import org.hamcrest.CoreMatchers.`is`
-import org.junit.After
-import org.junit.Test
-import androidx.test.InstrumentationRegistry
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
-import java.io.IOException
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
+
+@RunWith(MockitoJUnitRunner::class)
 class UserRepositoryTest{
-    val appContext = InstrumentationRegistry.getTargetContext()
+    private lateinit var appContext: Context
+
+    @Before
+    fun before() {
+        appContext = Mockito.mock(Context::class.java)
+    }
 
 
     @Test
@@ -26,8 +31,8 @@ class UserRepositoryTest{
 
         TxYzDatabase.getDatabase(appContext).userDao().insert(user)
 
-        assertEquals(userFromDb?.name, user.name)
-        assertEquals(userFromDb?.phoneNumber,user.phoneNumber)
+        assertEquals(userFromDb.name, user.name)
+        assertEquals(userFromDb.phoneNumber,user.phoneNumber)
     }
 
     @Test
@@ -47,8 +52,8 @@ class UserRepositoryTest{
 
         TxYzDatabase.getDatabase(appContext).userDao().update(user)
 
-        assertEquals(userFromDb?.name, user.name)
-        assertEquals(userFromDb?.phoneNumber,user.phoneNumber)
+        assertEquals(userFromDb.name, user.name)
+        assertEquals(userFromDb.phoneNumber,user.phoneNumber)
     }
 
 

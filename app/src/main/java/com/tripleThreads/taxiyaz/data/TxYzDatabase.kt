@@ -25,7 +25,7 @@ import com.tripleThreads.taxiyaz.data.user.UserDao
         Node::class,
         Location::class,
         Rating::class],
-    version = 5)
+    version = 6)
 abstract class TxYzDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

@@ -1,26 +1,26 @@
 package com.tripleThreads.taxiyaz
 
 import android.content.Context
-import com.tripleThreads.taxiyaz.data.TxYzDatabase
-import org.junit.Test
-import com.tripleThreads.taxiyaz.data.route.Route
-import org.junit.Assert.*
 import androidx.test.core.app.ApplicationProvider
+import com.tripleThreads.taxiyaz.data.TxYzDatabase
+import com.tripleThreads.taxiyaz.data.newRoute.Route
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-
-
-
-
+@RunWith(RobolectricTestRunner::class)
 class RouteRepositoryTest {
 
 
-    var context = ApplicationProvider.getApplicationContext<Context>()
+    private var context = ApplicationProvider.getApplicationContext<Context>()
 
 
     @Test
     fun getAllRoutes() {
 
-         val route = Route(1,"Testing Title",12,12,12,12.0,12.0F, ArrayList())
+         val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
          val dao = TxYzDatabase.getDatabase(context).routeDao()
          dao.insertRoute(route)
          assertNotEquals(dao.getAllRoutes(),null )
@@ -34,7 +34,7 @@ class RouteRepositoryTest {
 
     @Test
     fun insert() {
-        val route = Route(1,"Testing Title",12,12,12,12.0,12.0F, ArrayList())
+        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
         val dao = TxYzDatabase.getDatabase(context).routeDao()
         dao.insertRoute(route)
         assertNotEquals(dao.getRouteByName("Testing Title"),null )
@@ -45,7 +45,7 @@ class RouteRepositoryTest {
 
     @Test
     fun update() {
-        val route = Route(1,"Testing Title",12,12,12,12.0,12.0F, ArrayList())
+        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
         val dao = TxYzDatabase.getDatabase(context).routeDao()
         dao.insertRoute(route)
         assertNotEquals(dao.getRouteByName("Testing Title"),null )
@@ -55,7 +55,7 @@ class RouteRepositoryTest {
 
     @Test
     fun delete() {
-        val route = Route(1,"Testing Title",12,12,12,12.0,12.0F, ArrayList())
+        val route = Route(1,"Testing Title",12,2.50,2f,ArrayList(), ArrayList())
         val dao = TxYzDatabase.getDatabase(context).routeDao()
         dao.insertRoute(route)
 

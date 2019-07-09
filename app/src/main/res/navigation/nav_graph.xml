@@ -35,7 +35,8 @@
               tools:layout="@layout/fragment_comments"/>
     <fragment android:id="@+id/alternativeRouting_fragment_destination"
               android:name="com.tripleThreads.taxiyaz.fragments.AlternativeRoutingFragment"
-              android:label="fragment_alternative_routing" tools:layout="@layout/fragment_alternative_routing">
+              android:label="fragment_alternative_routing"
+              tools:layout="@layout/fragment_alternative_routing">
         <!--<argument-->
                 <!--android:name="count"-->
                 <!--app:argType="integer"-->

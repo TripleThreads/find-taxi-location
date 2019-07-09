@@ -24,8 +24,8 @@ class CreateNewNode : Fragment(), FabEventListeners {
 
     private lateinit var googleMap: GoogleMap
     private lateinit var marker: Marker
-    private var latitude = 0.0
-    private var longitude = 0.0
+    private var latitude = 9.85
+    private var longitude = 38.65
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(

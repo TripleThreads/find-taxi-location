@@ -22,7 +22,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         getUser()
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
+    fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         user = repository.getUser()
     }
 

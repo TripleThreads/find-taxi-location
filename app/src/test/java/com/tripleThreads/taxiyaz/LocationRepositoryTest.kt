@@ -1,27 +1,25 @@
 package com.tripleThreads.taxiyaz
 
-import androidx.test.InstrumentationRegistry
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
-import com.tripleThreads.taxiyaz.data.location.Location
-import com.tripleThreads.taxiyaz.data.location.LocationDao
+import com.tripleThreads.taxiyaz.data.node.Node
+import com.tripleThreads.taxiyaz.data.node.NodeDao
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 
-import org.junit.Assert.*
-import java.util.*
-import kotlin.collections.ArrayList
-
 class LocationRepositoryTest {
 
-    lateinit var locationDao: LocationDao
+    lateinit var locationDao: NodeDao
 
-    lateinit var location: Location
+    lateinit var location: Node
 
     @Before
     fun setUp(){
-        var context = InstrumentationRegistry.getTargetContext()
-        locationDao = TxYzDatabase.getDatabase(context).locationDao()
-        location = Location(1,"Test Location",12.0,12.0)
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        locationDao = TxYzDatabase.getDatabase(context).nodeDao()
+        location = Node(1,"Test Location",12.0,12.0)
 
 
     }
