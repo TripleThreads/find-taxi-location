@@ -2,6 +2,7 @@ package com.tripleThreads.taxiyaz.fragments
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.tripleThreads.taxiyaz.MainActivity
 import com.tripleThreads.taxiyaz.R
 import com.tripleThreads.taxiyaz.data.user.User
 import com.tripleThreads.taxiyaz.databinding.FragmentLoginBinding
@@ -118,8 +120,14 @@ class LoginFragment : Fragment(), UserViewModelEventListeners {
     }
 
     override fun onButtonClick(user: User) {
-        Toast.makeText(context, user.name, Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, user.name, Toast.LENGTH_LONG).show()
         userViewModel.insert(user)
+        var sharedPreference = context?.getSharedPreferences("user", Context.MODE_PRIVATE)
+        with(sharedPreference!!.edit()){
+            putString("user", user.phoneNumber)
+            commit()
+        }
+
         findNavController().navigate(R.id.route_fragment_dest)
         activity!!.bottom_navigation.visibility = View.VISIBLE
         showDialog()

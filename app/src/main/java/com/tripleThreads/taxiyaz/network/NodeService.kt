@@ -1,6 +1,7 @@
 package com.tripleThreads.taxiyaz.network
 
 import com.tripleThreads.taxiyaz.data.node.APINode
+import com.tripleThreads.taxiyaz.data.node.AvailableNode
 import com.tripleThreads.taxiyaz.data.node.Node
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -18,4 +19,7 @@ interface NodeService {
 
     @DELETE("/api/node/{id}")
     fun deleteLocation(@Path("id") id: Long): Deferred<Response<Void>>
+
+    @PATCH("/api/node/{id}")
+    fun addEdge(@Path("id") id: Long, @Body availableNodes: ArrayList<AvailableNode>): Deferred<Response<Void>>
 }

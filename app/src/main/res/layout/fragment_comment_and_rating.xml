@@ -85,7 +85,7 @@
         <androidx.appcompat.widget.AppCompatRatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ratingBar2"
+                android:id="@+id/route_rating_bar"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 android:layout_marginTop="8dp"
@@ -118,5 +118,6 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintVertical_bias="0.354"
                 app:layout_constraintTop_toTopOf="@+id/guideline5"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

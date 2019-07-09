@@ -13,7 +13,7 @@ data class Route (
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "number_of_hops") val hops: Int,
     @ColumnInfo(name = "price") val price: Double,
-    @ColumnInfo(name = "rating") val rating: Float,
+    @ColumnInfo(name = "rating") var rating: Float,
     @ColumnInfo(name = "latitudes") var latitudes: ArrayList<Double>,
     @ColumnInfo(name = "longitudes") var longitudes: ArrayList<Double>
 ):Serializable

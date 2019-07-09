@@ -54,9 +54,25 @@ class RouteRepository(private val dao: RouteDao, private val routeService: Route
         allRoutes = dao.getAllRoutes()
         return dao.getRouteByName("%$name%")
     }
+    fun updateLocal(id:Long, rate: Float){
+        var route:Route = dao.getRouteById(id)
+        route.rating = rate
+        dao.updateRoute(route)
+    }
 
     fun getAll(): LiveData<List<Route>> {
         return dao.getAllRoutes()
+    }
+    fun rateRoute(id:Long, rate: Float){
+        GlobalScope.launch(Dispatchers.IO) {
+            if (routeService != null) {
+                val response: Response<Void> = routeService.addRating(id,rate)!!.await()
+                if(response.isSuccessful){
+                    updateLocal(id, rate)
+                }
+
+            }
+        }
     }
 
 

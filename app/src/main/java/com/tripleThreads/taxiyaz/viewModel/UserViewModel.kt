@@ -3,6 +3,7 @@ package com.tripleThreads.taxiyaz.viewModel
 import android.app.Application
 import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.user.User
@@ -22,8 +23,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         getUser()
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        user = repository.getUser()
+    fun getUser() = viewModelScope.launch(Dispatchers.IO) {
+        user =  repository.getUser()
     }
 
     fun insert(user: User) = viewModelScope.launch(Dispatchers.IO) {

@@ -7,7 +7,7 @@ class APINode(
     var name: String,
     var latitude: Double,
     var longitude: Double,
-    val availableNode: AvailableNode
+    val availableNode: AvailableNode?
 
 ){
     fun convertToNode(): Node{

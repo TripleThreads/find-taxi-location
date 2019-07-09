@@ -8,6 +8,7 @@ import com.tripleThreads.taxiyaz.Network.DataServiceGenerator
 import com.tripleThreads.taxiyaz.data.node.Node
 import com.tripleThreads.taxiyaz.data.TxYzDatabase
 import com.tripleThreads.taxiyaz.data.location.Location
+import com.tripleThreads.taxiyaz.data.node.NodeEdge
 import com.tripleThreads.taxiyaz.repository.LocationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,9 +48,9 @@ class LocationViewModel (application: Application): AndroidViewModel(application
         //TODO
     }
 
-    fun addAvailableNode(nodeTitle: String, destNodeTitle: String, price: Double) {
+    fun addAvailableNode(nodeTitle: String, nodeEdges: List<NodeEdge>) = viewModelScope.launch(Dispatchers.IO) {
 
-
+        repository.addAvailableNode(nodeTitle, nodeEdges)
     }
 
 

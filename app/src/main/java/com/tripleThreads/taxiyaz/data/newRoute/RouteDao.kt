@@ -23,4 +23,7 @@ interface RouteDao {
     @Query("DELETE FROM ROUTE")
     fun deleteAll()
 
+    @Query("SELECT * FROM ROUTE WHERE route_id =:id")
+    fun getRouteById(id: Long): Route
+
 }
