@@ -66,10 +66,6 @@ class CommentsFragment : Fragment() {
 
         })
 
-        view.bookmark.setOnClickListener {
-            routeViewModel.addToBookMark(route.routeId)
-        }
-
         val routeMap = BestRouteFragment()
 
         var args = Bundle()
