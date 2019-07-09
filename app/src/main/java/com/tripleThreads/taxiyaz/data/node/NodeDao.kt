@@ -19,4 +19,7 @@ interface NodeDao {
 
     @Query("SELECT * FROM Node WHERE id=:nodeId")
     fun getLocationById(nodeId: Long) :LiveData<Node>
+
+    @Query("SELECT * FROM Node WHERE name=:nodeTitle")
+    fun getLocationByName(nodeTitle: String): Node
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tripleThreads.taxiyaz.R
+import com.tripleThreads.taxiyaz.data.node.NodeEdge
 import com.tripleThreads.taxiyaz.databinding.FragmentTaxiToNodeBinding
 import com.tripleThreads.taxiyaz.viewModel.LocationViewModel
 import kotlinx.android.synthetic.main.available_taxi_layout.view.*
@@ -96,15 +97,25 @@ class AddTaxiToNodeFragment : Fragment(), RegisterTaxiEventListeners {
 
     override fun onSubmit() {
         if(taxiBegin.text.toString().trim() != "") {
-            locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+            var nodeEdges= ArrayList<NodeEdge>()
+
             for (_view in dynamicAvailableTaxi) {
-                Toast.makeText(context, _view.location_name.text.toString(), Toast.LENGTH_LONG).show()
-
-
-                locationViewModel.addAvailableNode(taxiBegin.text.toString(),_view.location_name.text.toString(), _view.location_price.text.toString().toDouble())
-
-                // this is where you can access those data
+//                Toast.makeText(context, _view.location_name.text.toString(), Toast.LENGTH_LONG).show()
+                if(_view.location_name.text.toString().trim() != "" && _view.location_price.text.toString().trim() != ""){
+                    var temp = NodeEdge(_view.location_name.text.toString(), _view.location_price.text.toString().toDouble())
+                    nodeEdges.add(temp)
+                }
+                else
+                    break
             }
+            if(nodeEdges.size > 0){
+                locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
+                locationViewModel.addAvailableNode(taxiBegin.text.toString(),nodeEdges)
+                Toast.makeText(context, "Thank you for your contribution",Toast.LENGTH_SHORT).show()
+
+            }
+
+
         }
         else{
             Toast.makeText(context, "Please fill out all the values", Toast.LENGTH_LONG).show()

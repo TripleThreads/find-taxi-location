@@ -40,27 +40,14 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
 
     @WorkerThread
     fun delete(comment: Comment){
-//        if (comment.userId == currentUserID){
-//            dao.deleteComment(comment)
-//        }
-//        else{
-//            notAllowed
-//        }
+        deleteCommentfromAPI(comment)
     }
 
     @WorkerThread
     fun update(comment: Comment){
-        //    //        if (comment.userId == currentUserID){
-//            dao.deleteComment(comment)
-//        }
-//        else{
-//            notAllowed
-//        }    if (comment.userId == currentUserID){
-//            dao.deleteComment(comment)
-//        }
-//        else{
-//            notAllowed
-//        }
+        dao.deleteComment(comment)
+        updateCommentInAPI(comment)
+        getCommentsFromAPI(comment.routeId)
 
     }
     
@@ -99,7 +86,7 @@ class CommentRepository(private val dao: CommentDao, private val commentService:
         var edited= false
         GlobalScope.launch(Dispatchers.IO) {
             if(commentService != null){
-                commentService.editComment(comment.id.toLong(),comment)
+                commentService.editComment(comment.id,comment)
                 edited = true
             }
         }

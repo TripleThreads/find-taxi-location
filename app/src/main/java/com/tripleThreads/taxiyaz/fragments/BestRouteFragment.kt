@@ -78,6 +78,12 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
             drawPath()
 
         }
+        if(arguments?.getSerializable("route") != null)
+        {
+            val argsRoute =arguments?.getSerializable("route") as Route
+            bestRoute.value = argsRoute
+        }
+
 
         // cant bind to google maps so directly accessed
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync { mMap ->
@@ -95,6 +101,20 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
                 // For dropping a marker at a point on the Map
                 val latLng = LatLng(mCurrentLocation.latitude, mCurrentLocation.longitude)
                 googleMap.addMarker(MarkerOptions().position(latLng).title("Marker Title").snippet("Marker Description"))
+
+                //for pin pointing each node
+                bestRoute.observe(this,androidx.lifecycle.Observer {
+                    if(!(it!!.title.equals(""))){
+                        var marks = it!!.latitudes.size
+                        var hop =0
+                        it!!.latitudes.forEach {
+                            var point = LatLng(it!!, 8.9)
+                            googleMap.addMarker(MarkerOptions().position(point).title("Hop $hop").snippet("This is where you will find taxi number $hop"))
+                            hop += 1
+
+                        }
+                    }
+                })
 
 
                 // For zooming automatically to the location of the marker
@@ -233,12 +253,8 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
     }
 
     private fun calculatePathLeft() {
-        //display the comment and rate fragment every 25% of the path traveled
-        //if the distance is equal to 25% of the distancelocationchanged
 
-
-        Log.d("bestroute", bestRoute.value!!.title)
-        if(bestRoute.value?.routeId != -1L)
+        if(bestRoute.value?.routeId!!.toInt() != -1 && bestRoute.value !=null)
         {
             val dialog = CommentAndRatingFragment()
             val bundle = Bundle()
@@ -256,4 +272,5 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
 
 
     }
+
 }

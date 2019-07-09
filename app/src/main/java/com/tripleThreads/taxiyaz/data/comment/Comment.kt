@@ -5,6 +5,7 @@ import androidx.databinding.Bindable
 import androidx.room.*
 import com.tripleThreads.taxiyaz.data.newRoute.Route
 import org.jetbrains.annotations.NotNull
+import java.io.Serializable
 import java.util.*
 
 
@@ -25,4 +26,4 @@ data class Comment(
     @ColumnInfo(name="route_id") var routeId: Long,
     @ColumnInfo(name="userId") val userId: String,
     @Bindable @ColumnInfo(name="comment") var comment: String,
-    @ColumnInfo(name = "date") val date: Date?): BaseObservable()
+    @ColumnInfo(name = "date") var date: Date?): BaseObservable(), Serializable

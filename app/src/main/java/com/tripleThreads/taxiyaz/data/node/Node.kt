@@ -14,4 +14,8 @@ data class Node (
     @Bindable @ColumnInfo(name="latitude") var latitude: Double,
     @Bindable @ColumnInfo(name="longitude") var longitude: Double
     //val availableNode: AvailableNode
-): BaseObservable()
+): BaseObservable(){
+    fun convertToAPINode(): APINode{
+        return APINode(this.id, this.name, this.latitude, this.longitude,null)
+    }
+}

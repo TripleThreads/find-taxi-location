@@ -42,7 +42,6 @@ class AlternativeRoutingFragment : Fragment() {
         var recyclerView = view.alternate_route_recycler_view
         var adapter = RouteListAdapter(activity1, object : OnItemClickListener {
             override fun onItemClick(route: Route) {
-                Toast.makeText(context, "Clicked",Toast.LENGTH_SHORT).show()
                 val args = Bundle()
                 args.putSerializable("route",route)
                 findNavController().navigate(R.id.comments_fragment_dest,args)

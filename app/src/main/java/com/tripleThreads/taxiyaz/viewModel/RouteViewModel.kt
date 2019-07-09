@@ -33,10 +33,6 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
         return allRoutes
     }
 
-    fun insert(route: NodeConnection) = viewModelScope.launch(Dispatchers.IO) {
-        //repository.insert(route)
-    }
-
     fun update(route: Route) = viewModelScope.launch (Dispatchers.IO){
         //repository.update(route)
     }
@@ -55,5 +51,8 @@ class RouteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAll() = viewModelScope.launch(Dispatchers.IO) {
         allRoutes = repository.getAll()
+    }
+    fun rateRoute(id:Long, rating: Float) = viewModelScope.launch(Dispatchers.IO) {
+        repository.rateRoute(id,rating)
     }
 }

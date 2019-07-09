@@ -25,6 +25,9 @@ interface RouteService {
     @PUT("/api/route/{id}")
     fun editRoute(@Path("id") id: Long, @Body route: Route): Deferred<Response<Void>>
 
+    @PATCH("/api/route/{id}/{rate}")
+    fun addRating(@Path("id") id: Long, @Path("rate") rate: Float): Deferred<Response<Void>>
+
 
 
 

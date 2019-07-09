@@ -1,11 +1,10 @@
 package com.tripleThreads.taxiyaz.repository
 
+import android.os.AsyncTask
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.tripleThreads.taxiyaz.data.node.APINode
-import com.tripleThreads.taxiyaz.data.node.Node
-import com.tripleThreads.taxiyaz.data.node.NodeDao
+import com.tripleThreads.taxiyaz.data.node.*
 import com.tripleThreads.taxiyaz.network.NodeService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -69,6 +68,27 @@ class LocationRepository(private val dao: NodeDao, private val nodeService: Node
             }
         }
         return added
+    }
+
+    fun addAvailableNode(nodeTitle: String, nodeEdges: List<NodeEdge>) {
+
+            var startNode = dao.getLocationByName(nodeTitle)
+            var availableNodes =ArrayList<AvailableNode>()
+            nodeEdges.forEach {
+                var destination=dao.getLocationByName(it.destinationName)
+                var availableNode = AvailableNode(0,destination, it.price)
+                availableNodes.add(availableNode)
+                Log.d("edgenode","$availableNode")
+            }
+            if (nodeService != null){
+                nodeService.addEdge(startNode.id, availableNodes)
+
+                Log.d("edgenode","edge added")
+            }
+
+
+
+
     }
 
 
