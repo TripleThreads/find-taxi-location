@@ -116,6 +116,17 @@ class BestRouteFragment : Fragment(), OnMapReadyCallback, LocationListener, Goog
                     }
                 })
 
+                bestRoute.observe(this, androidx.lifecycle.Observer {
+                    route ->
+                    run {
+                        googleMap.clear()
+                        for(i in 0 until route.latitudes.size) {
+                            val latLang = LatLng(route.latitudes[i], route.longitudes[i])
+                            googleMap.addMarker(MarkerOptions().position(latLang).title("Node $i"))
+                        }
+                    }
+                })
+
 
                 // For zooming automatically to the location of the marker
                 val cameraPosition = CameraPosition.Builder().target(latLng).zoom(12f).build()
